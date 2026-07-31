@@ -1,1 +1,1 @@
-export const baseURL = `insert tmdb base url`;
+export const baseURL = `https://api.themoviedb.org/3/`;
