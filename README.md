@@ -1,1 +1,8 @@
 This is an anime movie database project made using react js and using the tmdb api.
+
+
+Important Note:
+
+Add your .env file on the root with the tmdb api key first!
+eg. VITE_MOVIEDB_API_KEY= [insert your api key here]
+without the []
