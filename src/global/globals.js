@@ -1,6 +1,6 @@
 export const baseURL = `https://api.themoviedb.org/3/`;
 
-export const APP_FOLDER_NAME ="animovies-db";
+export const APP_FOLDER_NAME ="animovies";
 
 // More details here -> https://developer.themoviedb.org/reference/movie-details
 export const detailsUrl = `movie/{movie_id}`;
