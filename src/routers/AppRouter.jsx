@@ -8,10 +8,11 @@ import PageDetails from '../pages/PageDetails';
 import PageFavorites from '../pages/PageFavorites';
 import PageHome from '../pages/PageHome';
 import PageNotFound from '../pages/PageNotFound';
+import { APP_FOLDER_NAME } from '../global/globals';
 
 function AppRouter() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={`/${APP_FOLDER_NAME}`}>
         <div className="wrapper">
             <main>
                 <Routes>
