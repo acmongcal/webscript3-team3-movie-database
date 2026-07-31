@@ -6,3 +6,7 @@ Important Note:
 Add your .env file on the root with the tmdb api key first!
 eg. VITE_MOVIEDB_API_KEY= [insert your api key here]
 without the []
+
+Add
+const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
+to your components.
