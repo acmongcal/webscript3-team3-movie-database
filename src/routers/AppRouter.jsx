@@ -19,7 +19,7 @@ function AppRouter() {
             <main>
                 <Routes>
                     <Route path="/" element={<PageHome />} />
-                    <Route path="/about" exact element={<PageAbout />} />
+                    <Route path="/about" element={<PageAbout />} />
                     <Route path="/movie-details/:id" element={<PageDetails />} />
                     <Route path="/favorites" element={<PageFavorites />} />
                     <Route path="*" element={<PageNotFound />} />
