@@ -1,10 +1,7 @@
-import { useState } from 'react'
-function App() {
+import AppRouter from "./routers/AppRouter";
 
-  return (
-    <>
-    </>
-  )
+function App() {
+  return <AppRouter />;
 }
 
-export default App
+export default App;

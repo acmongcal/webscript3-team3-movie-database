@@ -1,7 +1,8 @@
 // AppRouter
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // Components
-
+import Header from "../components/Header";
+import Footer from '../components/Footer';
 // Pages
 import PageAbout from '../pages/PageAbout';
 import PageDetails from '../pages/PageDetails';
@@ -14,6 +15,7 @@ function AppRouter() {
   return (
     <BrowserRouter basename={`/${APP_FOLDER_NAME}`}>
         <div className="wrapper">
+            <Header/>
             <main>
                 <Routes>
                     <Route path="/" element={<PageHome />} />
@@ -23,6 +25,7 @@ function AppRouter() {
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
             </main>
+            <Footer />
         </div>
     </BrowserRouter>
   );
