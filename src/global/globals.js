@@ -21,17 +21,18 @@ export function setOptions(apiKey){
 }
 
 // More details here -> https://developer.themoviedb.org/reference/movie-details
-export const detailsUrl = `movie/{movie_id}`;
+export const detailsEndPoint = `movie/{movie_id}`;
 
 //More details here -> https://developer.themoviedb.org/reference/movie-images
-export const movieImagesUrl =`movie/{movie_id}/images`;
+export const movieImagesEndPoint =`movie/{movie_id}/images`;
 
 //More details here -> https://developer.themoviedb.org/reference/movie-videos
-export const movieTrailerUrl = `movie/{movie_id}/videos`;
+export const movieTrailerEndPoint = `movie/{movie_id}/videos`;
 
 //More details here -> https://developer.themoviedb.org/reference/movie-credits
-export const movieCastUrl =`movie/{movie_id}/credits`;
+export const movieCastEndPoint =`movie/{movie_id}/credits`;
 
 
-
+//More details here -> https://developer.themoviedb.org/reference/search-movie
+export const searchEndPoint = "https://developer.themoviedb.org/reference/search-movie?query=";
 
