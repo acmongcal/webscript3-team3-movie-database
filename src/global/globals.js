@@ -30,7 +30,7 @@ export const movieImagesEndPoint =`movie/{movie_id}/images`;
 export const movieTrailerEndPoint = `movie/{movie_id}/videos`;
 // Append the key from the movie-videos
 export const ytUrl = "https://www.youtube.com/watch?v=";
-export const vimeoUrl = ": https://vimeo.com/";
+export const vimeoUrl = "https://vimeo.com/";
 
 
 //More details here -> https://developer.themoviedb.org/reference/movie-credits
