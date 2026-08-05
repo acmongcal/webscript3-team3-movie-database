@@ -23,7 +23,7 @@ function App() {
 
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/discover/movie?include_adult=false&sort_by=${filter}&with_original_language=ja&with_origin_country=JP`,
+          `https://api.themoviedb.org/3/discover/movie?include_adult=false&${filter}&with_original_language=ja&with_origin_country=JP`,
 
           options,
         );
@@ -75,11 +75,11 @@ function App() {
       >
         Now Playing
       </button>
-      <button onClick={() => setFilter("popularity.desc")}>Popular</button>
-      <button onClick={() => setFilter("primary_release_date.desc")}>
+      <button onClick={() => setFilter("sort_by=popularity.desc")}>Popular</button>
+      <button onClick={() => setFilter("sort_by=primary_release_date.desc")}>
         Upcoming
       </button>
-      <button onClick={() => setFilter("vote_average.desc")}>Top Rated</button>
+      <button onClick={() => setFilter("sort_by=vote_average.desc")}>Top Rated</button>
       {movies.length > 0 && (
         <ul>
           {movies.map((movie, i) => (
