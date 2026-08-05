@@ -2,6 +2,13 @@ export const baseURL = `https://api.themoviedb.org/3/`;
 
 export const APP_FOLDER_NAME ="animovies";
 
+
+
+export const min_date = new Date().toLocaleDateString();
+export const max_date = new Date(
+  Date.now() + 7 * 24 * 60 * 60 * 1000,
+).toLocaleDateString();
+
 export function setOptions(apiKey){
     const options = {
       method: "GET",

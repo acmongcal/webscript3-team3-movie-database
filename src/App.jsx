@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { setOptions } from "./global/globals";
+import { min_date } from "./global/globals";
+import { max_date } from "./global/globals";
+
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
-const min_date = new Date().toLocaleDateString();
-const max_date = new Date(
-  Date.now() + 7 * 24 * 60 * 60 * 1000,
-).toLocaleDateString();
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -79,7 +78,7 @@ function App() {
       <button onClick={() => setFilter("sort_by=primary_release_date.desc")}>
         Upcoming
       </button>
-      <button onClick={() => setFilter("sort_by=vote_average.desc")}>Top Rated</button>
+      <button onClick={() => setFilter("sort_by=vote_average.desc&vote_count.gte=200")}>Top Rated</button>
       {movies.length > 0 && (
         <ul>
           {movies.map((movie, i) => (
