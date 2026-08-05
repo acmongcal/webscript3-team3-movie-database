@@ -2,6 +2,17 @@ export const baseURL = `https://api.themoviedb.org/3/`;
 
 export const APP_FOLDER_NAME ="animovies";
 
+export function setOptions(apiKey){
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: "Bearer " + apiKey,
+      }
+    };
+    return options;
+}
+
 // More details here -> https://developer.themoviedb.org/reference/movie-details
 export const detailsUrl = `movie/{movie_id}`;
 
@@ -33,3 +44,6 @@ export const animeFilter = `?include_adult=false&with_keywords=anime`;
 
 //More details here ->  https://developer.themoviedb.org/reference/movie-keywords
 export const movieKeywords =`https://api.themoviedb.org/3/movie/{movie_id}/keywords` ;
+
+
+
