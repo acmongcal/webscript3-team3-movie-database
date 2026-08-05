@@ -22,7 +22,7 @@ function App() {
 
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/discover/movie?include_adult=false&${filter}&with_original_language=ja&with_origin_country=JP`,
+          `https://api.themoviedb.org/3/discover/movie?include_adult=false&${filter}&with_original_language=ja&with_origin_country=JP&with_keywords=210024`,
 
           options,
         );
