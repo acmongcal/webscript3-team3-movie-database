@@ -1,20 +1,19 @@
 import { NavLink } from 'react-router-dom';
-const Nav = () => {
 
-    function blur(e){
-        e.target.blur();
+const Nav = ({ className = '' }) => {
+    function blur(event) {
+        event.currentTarget.blur();
     }
 
     return (
-        <nav onClick={blur}>
+        <nav className={className}>
             <ul>
-                <li><NavLink to="/" >Home</NavLink></li>
-                <li><NavLink to="/about">About</NavLink></li>
-                <li><NavLink to="/favorites">Favorites</NavLink></li>
+                <li><NavLink to="/" onClick={blur}>Home</NavLink></li>
+                <li><NavLink to="/about" onClick={blur}>About</NavLink></li>
+                <li><NavLink to="/favorites" onClick={blur}>Favorites</NavLink></li>
             </ul>
         </nav>
     );
-
 };
 
 export default Nav;
