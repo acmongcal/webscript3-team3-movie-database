@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { setOptions } from "../global/globals";
+import { appTitle, setOptions } from "../global/globals";
 import { min_date } from "../global/globals";
 import { max_date } from "../global/globals";
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
@@ -56,6 +56,11 @@ function PageHome() {
         isMounted = false;
       };
     }, [filter]);
+
+    useEffect(()=>{
+      document.title = `${appTitle} - Home`;
+    },[]);
+    
     if (loading) {
       return <div>Loading movies...</div>;
     }
