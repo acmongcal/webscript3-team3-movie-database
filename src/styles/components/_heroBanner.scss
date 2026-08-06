@@ -12,7 +12,7 @@
 
 .slider-viewport{
     display: flex;
-    width: 300%;
+    width:700%;
     height: 100%;
     transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
     overflow: hidden;
@@ -24,7 +24,7 @@
     display: none;
 }
 .slide{
-    width: 33.3333%;
+    width: 20%;
     height: 100%;
     position: relative;
     display: flex;
@@ -126,12 +126,20 @@
 }
 
 #radio-1:checked ~ .slider-viewport{transform: translateX(0%);}
-#radio-2:checked ~ .slider-viewport{transform: translateX(-33.3333%);}
-#radio-3:checked ~ .slider-viewport{transform: translateX(-66.6666%);}
+#radio-2:checked ~ .slider-viewport{transform: translateX(-14.2857%);}
+#radio-3:checked ~ .slider-viewport{transform: translateX(-28.5714%);}
+#radio-4:checked ~ .slider-viewport{transform: translateX(-42.8571%);}
+#radio-5:checked ~ .slider-viewport{transform: translateX(-57.1429%);}
+#radio-6:checked ~ .slider-viewport{transform: translateX(-71.4303%);}
+#radio-7:checked ~ .slider-viewport{transform: translateX(-85.7160%);}
 
 #radio-1:checked ~ .slider-nav label[for="radio-1"],
 #radio-2:checked ~ .slider-nav label[for="radio-2"],
-#radio-3:checked ~ .slider-nav label[for="radio-3"]{
+#radio-3:checked ~ .slider-nav label[for="radio-3"],
+#radio-4:checked ~ .slider-nav label[for="radio-4"],
+#radio-5:checked ~ .slider-nav label[for="radio-5"],
+#radio-6:checked ~ .slider-nav label[for="radio-6"],
+#radio-7:checked ~ .slider-nav label[for="radio-7"]{
     background-color: red;
     border-color:red;
     transform: scale(1.2);
@@ -139,7 +147,11 @@
 
 #radio-1:checked ~ .slider-viewport .slide:nth-child(1) .slide-content,
 #radio-2:checked ~ .slider-viewport .slide:nth-child(2) .slide-content,
-#radio-3:checked ~ .slider-viewport .slide:nth-child(3) .slide-content{
+#radio-3:checked ~ .slider-viewport .slide:nth-child(3) .slide-content,
+#radio-4:checked ~ .slider-viewport .slide:nth-child(4) .slide-content,
+#radio-5:checked ~ .slider-viewport .slide:nth-child(5) .slide-content,
+#radio-6:checked ~ .slider-viewport .slide:nth-child(6) .slide-content,
+#radio-7:checked ~ .slider-viewport .slide:nth-child(7) .slide-content{
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0.25s;
