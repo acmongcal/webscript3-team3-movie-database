@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { appTitle, setOptions } from "../global/globals";
 import { min_date } from "../global/globals";
 import { max_date } from "../global/globals";
+import HeroBanner from "../components/HeroBanner";
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
 
@@ -71,6 +72,7 @@ function PageHome() {
   return (
     <section>
       <h2>Home</h2>
+      <HeroBanner/>
       <button
         onClick={() =>
           setFilter(`with_release_type=1|2|3&primary_release_date.gte=${min_date}&primary_release_date.lte=${max_date}`)
