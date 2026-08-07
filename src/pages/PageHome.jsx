@@ -71,7 +71,6 @@ function PageHome() {
   
   return (
     <section>
-      <h2>Home</h2>
       <HeroBanner/>
       <button
         onClick={() =>
