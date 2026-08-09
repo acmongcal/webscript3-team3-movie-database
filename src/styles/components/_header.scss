@@ -17,6 +17,10 @@
   }
 }
 
+.menu-toggle {
+  display: none;
+}
+
 .header-nav {
   ul {
     display: flex;
@@ -50,16 +54,45 @@
 
 @media (max-width: 36rem) {
   .site-header {
-    align-items: flex-start;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 0.75rem;
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+    padding: 0.4rem 0.65rem;
+    color: #ffffff;
+    font-size: 1.5rem;
+    line-height: 1;
+    background: transparent;
+    border: 0.1rem solid #ffffff;
+    border-radius: 0.25rem;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 0.15rem solid #ffb347;
+      outline-offset: 0.15rem;
+    }
+  }
+
+  #header-navigation {
+    display: none;
+    flex-basis: 100%;
+
+    &.menu-is-open {
+      display: block;
+    }
   }
 
   .header-nav {
     width: 100%;
 
     ul {
-      justify-content: space-between;
+      flex-direction: column;
+      align-items: stretch;
     }
   }
 }

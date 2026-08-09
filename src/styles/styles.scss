@@ -1,3 +1,8 @@
 @use './base/base';
 @use './components/header';
 @use './components/footer';
+
+
+//-- Pages--//
+// About
+@use "./pages/about";
