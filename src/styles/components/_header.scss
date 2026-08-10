@@ -1,27 +1,31 @@
 .site-header {
   display: flex;
-  min-height: 4.5rem;
+  min-height: calc(9rem / 2);
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
   padding: 1rem max(1rem, calc((100% - 75rem) / 2));
   color: #ffffff;
   background: #20242a;
-  border-bottom: 0.25rem solid #e6533c;
+  border-bottom: calc(1rem / 4) solid #e6533c;
 
   h1 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: calc(3rem / 2);
     line-height: 1.2;
     letter-spacing: 0;
   }
+}
+
+.menu-toggle {
+  display: none;
 }
 
 .header-nav {
   ul {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: calc(1rem / 2);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -29,11 +33,11 @@
 
   a {
     display: block;
-    padding: 0.6rem 0.75rem;
+    padding: calc(5rem / 8) calc(3rem / 4);
     color: #ffffff;
     font-weight: 600;
     text-decoration: none;
-    border-bottom: 0.15rem solid transparent;
+    border-bottom: calc(1rem / 8) solid transparent;
 
     &:hover,
     &.active {
@@ -42,24 +46,53 @@
     }
 
     &:focus-visible {
-      outline: 0.15rem solid #ffffff;
-      outline-offset: 0.15rem;
+      outline: calc(1rem / 8) solid #ffffff;
+      outline-offset: calc(1rem / 8);
     }
   }
 }
 
 @media (max-width: 36rem) {
   .site-header {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.75rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(3rem / 4);
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+    padding: calc(3rem / 8) calc(5rem / 8);
+    color: #ffffff;
+    font-size: calc(3rem / 2);
+    line-height: 1;
+    background: transparent;
+    border: calc(1rem / 8) solid #ffffff;
+    border-radius: calc(1rem / 4);
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: calc(1rem / 8) solid #ffb347;
+      outline-offset: calc(1rem / 8);
+    }
+  }
+
+  #header-navigation {
+    display: none;
+    flex-basis: 100%;
+
+    &.menu-is-open {
+      display: block;
+    }
   }
 
   .header-nav {
     width: 100%;
 
     ul {
-      justify-content: space-between;
+      flex-direction: column;
+      align-items: stretch;
     }
   }
 }
