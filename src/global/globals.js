@@ -1,5 +1,5 @@
-export const baseURL = `https://api.themoviedb.org/3/`;
-
+export const baseURL = "https://api.themoviedb.org/3/";
+export const appTitle = "Animovies";
 export const APP_FOLDER_NAME ="animovies";
 
 
