@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { setOptions } from "./global/globals";
+import MovieSection from "./components/MovieSection";
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
 const min_date = new Date().toLocaleDateString();
@@ -81,13 +82,7 @@ function App() {
       </button>
       <button onClick={() => setFilter("vote_average.desc")}>Top Rated</button>
       {movies.length > 0 && (
-        <ul>
-          {movies.map((movie, i) => (
-            <li key={i} value={movie.title}>
-              {movie.title}
-            </li>
-          ))}
-        </ul>
+        <MovieSection title="Movies" movies={movies} />
       )}
     </main>
   );
