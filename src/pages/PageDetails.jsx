@@ -53,36 +53,38 @@ function PageDetails() {
     return <p>Error: {error}</p>;
   }
 
-return (
-  <section className="movie-details">
-    <img
-      src={
-        movie.poster_path
-          ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-          : "https://placehold.co/500x750?text=No+Poster"
-      }
-      alt={movie.poster_path ? `${movie.title} poster` : "No poster available"}
-    />
+  return (
+    <section className="movie-details">
+      <img
+        src={
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+            : "https://placehold.co/500x750?text=No+Poster"
+        }
+        alt={
+          movie.poster_path ? `${movie.title} poster` : "No poster available"
+        }
+      />
 
-    <div>
-      <h2>{movie.title}</h2>
+      <div>
+        <h2>{movie.title}</h2>
 
-      <p>
-        <strong>Release date:</strong> {movie.release_date || "Not available"}
-      </p>
+        <p>
+          <strong>Release date:</strong> {movie.release_date || "Not available"}
+        </p>
 
-      <p>
-        <strong>Rating:</strong>{" "}
-        {movie.vote_average
-          ? `${Math.round(movie.vote_average * 10)}%`
-          : "Not rated"}
-      </p>
+        <p>
+          <strong>Rating:</strong>{" "}
+          {movie.vote_average
+            ? `${Math.round(movie.vote_average * 10)}%`
+            : "Not rated"}
+        </p>
 
-      <h3>Overview</h3>
-      <p>{movie.overview || "No plot summary is available."}</p>
-    </div>
-  </section>
-);
+        <h3>Overview</h3>
+        <p>{movie.overview || "No plot summary is available."}</p>
+      </div>
+    </section>
+  );
 }
 
 export default PageDetails;
