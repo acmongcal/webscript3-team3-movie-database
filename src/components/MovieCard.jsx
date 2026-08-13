@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 
 const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
-function MovieCard({ movie }) {
+function MovieCard({
+  movie,
+  isFavorite = false,
+  onAddFavorite,
+  onRemoveFavorite,
+}) {
   const poster = movie.poster_path
     ? `${POSTER_BASE_URL}${movie.poster_path}`
     : "/poster-placeholder.svg";
@@ -40,14 +45,29 @@ function MovieCard({ movie }) {
             : "No description available."}
         </Card.Text>
 
-        <Button
-          as={Link}
-          to={`/movie-details/${movie.id}`}
-          variant="primary"
-          className="mt-auto"
-        >
-          View Details
-        </Button>
+        <div className="d-flex flex-wrap gap-2 mt-auto">
+          <Button as={Link} to={`/movie-details/${movie.id}`} variant="primary">
+            View Details
+          </Button>
+
+          {isFavorite ? (
+            <Button
+              type="button"
+              variant="danger"
+              onClick={() => onRemoveFavorite?.(movie.id)}
+            >
+              X
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              variant="outline-danger"
+              onClick={() => onAddFavorite?.(movie)}
+            >
+              &hearts;
+            </Button>
+          )}
+        </div>
       </Card.Body>
     </Card>
   );

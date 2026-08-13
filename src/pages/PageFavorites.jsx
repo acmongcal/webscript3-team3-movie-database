@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import MovieSection from "../components/MovieSection";
 import { baseURL, setOptions } from "../global/globals";
+// Add and remove from favourites
+import {
+  addMovieToFavorites,
+  removeMovieFromFavorites,
+} from "../global/favorites";
 
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 const FAVORITE_MOVIE_IDS = [129, 372058];
@@ -11,6 +16,17 @@ function PageFavorites() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  function addFavorite(movie) {
+    setFavoriteMovies((currentFavorites) =>
+      addMovieToFavorites(currentFavorites, movie),
+    );
+  }
+
+  function removeFavorite(movieId) {
+    setFavoriteMovies((currentFavorites) =>
+      removeMovieFromFavorites(currentFavorites, movieId),
+    );
+  }
   useEffect(() => {
     const controller = new AbortController();
 
@@ -84,9 +100,22 @@ function PageFavorites() {
 
   return (
     <div className="favorites-page">
-      <MovieSection title="Favorite Movies" movies={favoriteMovies} />
+      <MovieSection
+        title="Favorite Movies"
+        movies={favoriteMovies}
+        favoriteMovies={favoriteMovies}
+        onAddFavorite={addFavorite}
+        onRemoveFavorite={removeFavorite}
+      />
+
       {recommendedMovies.length > 0 && (
-        <MovieSection title="Recommended Movies" movies={recommendedMovies} />
+        <MovieSection
+          title="Recommended Movies"
+          movies={recommendedMovies}
+          favoriteMovies={favoriteMovies}
+          onAddFavorite={addFavorite}
+          onRemoveFavorite={removeFavorite}
+        />
       )}
     </div>
   );
