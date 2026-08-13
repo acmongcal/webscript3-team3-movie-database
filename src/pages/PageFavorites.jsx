@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
 import MovieSection from "../components/MovieSection";
-import { baseURL, setOptions } from "../global/globals";
-// Add and remove from favourites
 import {
   addMovieToFavorites,
   removeMovieFromFavorites,
 } from "../global/favorites";
+import {
+  fetchFavoriteMovies,
+  fetchRecommendedMovies,
+} from "../global/favoritesApi";
 
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 const FAVORITE_MOVIE_IDS = [129, 372058];
 
 function PageFavorites() {
+  // Page data and request status.
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [recommendedMovies, setRecommendedMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
 
   function addFavorite(movie) {
     setFavoriteMovies((currentFavorites) =>
@@ -27,21 +31,10 @@ function PageFavorites() {
       removeMovieFromFavorites(currentFavorites, movieId),
     );
   }
+
+  // Load the starting favorites and their recommendations once.
   useEffect(() => {
     const controller = new AbortController();
-
-    async function fetchJson(path) {
-      const response = await fetch(`${baseURL}${path}`, {
-        ...setOptions(API_KEY),
-        signal: controller.signal,
-      });
-
-      if (!response.ok) {
-        throw new Error(`TMDB request failed with status ${response.status}`);
-      }
-
-      return response.json();
-    }
 
     async function loadMovies() {
       if (!API_KEY) {
@@ -51,29 +44,21 @@ function PageFavorites() {
       }
 
       try {
-        const favorites = await Promise.all(
-          FAVORITE_MOVIE_IDS.map((id) => fetchJson(`movie/${id}`)),
-        );
-
-        const favoriteIds = new Set(FAVORITE_MOVIE_IDS);
-        const recommendationResponses = await Promise.all(
-          FAVORITE_MOVIE_IDS.map((id) =>
-            fetchJson(`movie/${id}/recommendations`),
+        const [favorites, recommendations] = await Promise.all([
+          fetchFavoriteMovies(FAVORITE_MOVIE_IDS, API_KEY, controller.signal),
+          fetchRecommendedMovies(
+            FAVORITE_MOVIE_IDS,
+            API_KEY,
+            controller.signal,
           ),
-        );
+        ]);
 
-        const uniqueRecommendations = [
-          ...new Map(
-            recommendationResponses
-              .flatMap(({ results }) => results)
-              .filter((movie) => movie.original_language === "ja")
-              .filter((movie) => !favoriteIds.has(movie.id))
-              .map((movie) => [movie.id, movie]),
-          ).values(),
-        ].slice(0, 10);
+        if (controller.signal.aborted) {
+          return;
+        }
 
         setFavoriteMovies(favorites);
-        setRecommendedMovies(uniqueRecommendations);
+        setRecommendedMovies(recommendations);
       } catch (requestError) {
         if (requestError.name !== "AbortError") {
           setError(requestError.message);
@@ -100,6 +85,7 @@ function PageFavorites() {
 
   return (
     <div className="favorites-page">
+      {/* Current favorites */}
       <MovieSection
         title="Favorite Movies"
         movies={favoriteMovies}
@@ -108,6 +94,7 @@ function PageFavorites() {
         onRemoveFavorite={removeFavorite}
       />
 
+      {/* Recommendations are hidden when TMDB returns none. */}
       {recommendedMovies.length > 0 && (
         <MovieSection
           title="Recommended Movies"

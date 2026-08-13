@@ -1,4 +1,5 @@
 import MovieCard from "./MovieCard";
+import { isMovieFavorite } from "../global/favorites";
 
 function MovieSection({
   title,
@@ -11,13 +12,12 @@ function MovieSection({
     <section className="movie-section">
       <h2>{title}</h2>
       <div className="movie-grid">
+        {/* Create one card for every movie in this section. */}
         {movies.map((movie) => (
           <MovieCard
             key={movie.id}
             movie={movie}
-            isFavorite={favoriteMovies.some(
-              (favorite) => favorite.id === movie.id,
-            )}
+            isFavorite={isMovieFavorite(favoriteMovies, movie.id)}
             onAddFavorite={onAddFavorite}
             onRemoveFavorite={onRemoveFavorite}
           />

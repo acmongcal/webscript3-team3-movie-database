@@ -50,6 +50,7 @@ function MovieCard({
             View Details
           </Button>
 
+          {/* Show X for saved movies and a heart for unsaved movies. */}
           {isFavorite ? (
             <Button
               type="button"
