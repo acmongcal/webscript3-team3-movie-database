@@ -38,3 +38,10 @@ npm run build
 npm run lint
 npm run preview
 ```
+Add your .env file on the root with the tmdb api key first!
+eg. VITE_MOVIEDB_API_KEY= [insert your API Read Access Token here]
+without the []
+
+Add
+const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY
+to your components.
