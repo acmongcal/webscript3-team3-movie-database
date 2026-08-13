@@ -39,17 +39,18 @@ function PageFavorites() {
           FAVORITE_MOVIE_IDS.map((id) => fetchJson(`movie/${id}`)),
         );
 
+        const favoriteIds = new Set(FAVORITE_MOVIE_IDS);
         const recommendationResponses = await Promise.all(
           FAVORITE_MOVIE_IDS.map((id) =>
             fetchJson(`movie/${id}/recommendations`),
           ),
         );
 
-        const favoriteIds = new Set(FAVORITE_MOVIE_IDS);
         const uniqueRecommendations = [
           ...new Map(
             recommendationResponses
               .flatMap(({ results }) => results)
+              .filter((movie) => movie.original_language === "ja")
               .filter((movie) => !favoriteIds.has(movie.id))
               .map((movie) => [movie.id, movie]),
           ).values(),
