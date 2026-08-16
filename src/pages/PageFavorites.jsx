@@ -101,14 +101,21 @@ function PageFavorites() {
 
   return (
     <div className="favorites-page">
-      {/* Current favorites */}
-      <MovieSection
-        title="Favorite Movies"
-        movies={favoriteMovies}
-        favoriteMovies={favoriteMovies}
-        onAddFavorite={addFavorite}
-        onRemoveFavorite={removeFavorite}
-      />
+      {/* Show a helpful message when the favorites list is empty. */}
+      {favoriteMovies.length === 0 ? (
+        <section className="movie-section">
+          <h2>Favorite Movies</h2>
+          <p>You do not have any movies in your favorites.</p>
+        </section>
+      ) : (
+        <MovieSection
+          title="Favorite Movies"
+          movies={favoriteMovies}
+          favoriteMovies={favoriteMovies}
+          onAddFavorite={addFavorite}
+          onRemoveFavorite={removeFavorite}
+        />
+      )}
 
       <RecommendationsCarousel
         movies={recommendedMovies}
