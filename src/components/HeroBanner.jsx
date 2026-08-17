@@ -10,11 +10,9 @@ function HeroBanner({ movies }) {
     setIndex(selectedIndex);
   };
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect} className="banner-cover">
-      {movieArray.length > 0 && (
-        <ul>
-          {movieArray.map((movie, i) => (
-            <Carousel.Item interval={1000} key={i}>
+    <Carousel activeIndex={index} onSelect={handleSelect}>
+      {movieArray.map((movie, i) => (
+            <Carousel.Item interval={5000} key={i}>
               <Image
                 src={
                   IMAGE_BASE_URL + movie.backdrop_path
@@ -28,8 +26,6 @@ function HeroBanner({ movies }) {
               </Carousel.Caption>
             </Carousel.Item>
           ))}
-        </ul>
-      )}
     </Carousel>
   );
 }
