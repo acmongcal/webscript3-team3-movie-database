@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MovieSection from "../components/MovieSection";
+import RecommendationsCarousel from "../components/RecommendedCarousel";
 import {
   addMovieToFavorites,
   removeMovieFromFavorites,
@@ -19,6 +20,7 @@ function PageFavorites() {
   const [recommendedMovies, setRecommendedMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [recommendationsError, setRecommendationsError] = useState(null);
 
   // Connect the reusable array helpers to React state.
   function addFavorite(movie) {
@@ -49,22 +51,33 @@ function PageFavorites() {
       }
 
       try {
-        const [favorites, recommendations] = await Promise.all([
-          fetchFavoriteMovies(FAVORITE_MOVIE_IDS, API_KEY, controller.signal),
-          fetchRecommendedMovies(
-            FAVORITE_MOVIE_IDS,
-            API_KEY,
-            controller.signal,
-          ),
-        ]);
-
+        const favorites = await fetchFavoriteMovies(
+          FAVORITE_MOVIE_IDS,
+          API_KEY,
+          controller.signal,
+        );
         if (!controller.signal.aborted) {
           setFavoriteMovies(favorites);
-          setRecommendedMovies(recommendations);
         }
       } catch (requestError) {
         if (requestError.name !== "AbortError") {
           setError(requestError.message);
+        }
+      }
+
+      try {
+        const recommendations = await fetchRecommendedMovies(
+          FAVORITE_MOVIE_IDS,
+          API_KEY,
+          controller.signal,
+        );
+
+        if (!controller.signal.aborted) {
+          setRecommendedMovies(recommendations);
+        }
+      } catch (requestError) {
+        if (requestError.name !== "AbortError") {
+          setRecommendationsError(requestError.message);
         }
       } finally {
         if (!controller.signal.aborted) {
@@ -88,25 +101,26 @@ function PageFavorites() {
 
   return (
     <div className="favorites-page">
-      {/* Current favorites */}
-      <MovieSection
-        title="Favorite Movies"
-        movies={favoriteMovies}
-        favoriteMovies={favoriteMovies}
-        onAddFavorite={addFavorite}
-        onRemoveFavorite={removeFavorite}
-      />
-
-      {/* Hide recommendations when TMDB returns none. */}
-      {recommendedMovies.length > 0 && (
+      {/* Show a helpful message when the favorites list is empty. */}
+      {favoriteMovies.length === 0 ? (
+        <section className="movie-section">
+          <h2>Favorite Movies</h2>
+          <p>You do not have any movies in your favorites.</p>
+        </section>
+      ) : (
         <MovieSection
-          title="Recommended Movies"
-          movies={recommendedMovies}
+          title="Favorite Movies"
+          movies={favoriteMovies}
           favoriteMovies={favoriteMovies}
           onAddFavorite={addFavorite}
           onRemoveFavorite={removeFavorite}
         />
       )}
+
+      <RecommendationsCarousel
+        movies={recommendedMovies}
+        error={recommendationsError}
+      />
     </div>
   );
 }

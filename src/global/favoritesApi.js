@@ -35,8 +35,9 @@ export async function fetchRecommendedMovies(movieIds, apiKey, signal) {
       .flatMap(({ results }) => results)
       .filter((movie) => movie.original_language === "ja")
       .filter((movie) => !favoriteIds.has(movie.id))
+      .filter((movie) => movie.backdrop_path || movie.poster_path)
       .map((movie) => [movie.id, movie]),
   );
 
-  return [...recommendationsById.values()].slice(0, 10);
+  return [...recommendationsById.values()].slice(0, 5);
 }
