@@ -8,7 +8,7 @@ function HomeMovieSection({ movies }) {
         <Card key={i} style={{ width: "18rem" }}>
           <Card.Img
             variant="top"
-            src={IMAGE_BASE_URL + movie.backdrop_path}
+            src={IMAGE_BASE_URL + movie.poster_path}
             alt={movie.title}
           />
           <Card.Body>
