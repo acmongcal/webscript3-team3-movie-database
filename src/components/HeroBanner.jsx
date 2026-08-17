@@ -3,15 +3,16 @@ import Image from "react-bootstrap/Image";
 import {useState } from "react";
 function HeroBanner({ movies }) {
   const [index, setIndex] = useState(0);
+  const movieArray = movies.slice(0,6);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
   return (
     <Carousel activeIndex={index} onSelect={handleSelect}>
-      {movies.length > 0 && (
+      {movieArray.length > 0 && (
         <ul>
-          {movies.map((movie, i) => (
+          {movieArray.map((movie, i) => (
             <Carousel.Item interval={1000} key={i}>
               <Image
                 src={
