@@ -84,15 +84,6 @@ function PageHome() {
         Upcoming
       </button>
       <button onClick={() => setFilter("sort_by=vote_average.desc&vote_count.gte=200")}>Top Rated</button>
-      {/* {movies.length > 0 && (
-        <ul>
-          {movies.map((movie, i) => (
-            <li key={i} value={movie.title}>
-              {movie.title}
-            </li>
-          ))}
-        </ul>
-      )} */}
       <HomeMovieSection movies={movies}/>
     </section>
   );
