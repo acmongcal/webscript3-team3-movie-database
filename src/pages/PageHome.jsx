@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { appTitle, setOptions } from "../global/globals";
 import { min_date, max_date } from "../global/globals";
+import HomeMovieSection from "../components/HomeMovieSection";
 import HeroBanner from "../components/HeroBanner";
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
@@ -83,7 +84,7 @@ function PageHome() {
         Upcoming
       </button>
       <button onClick={() => setFilter("sort_by=vote_average.desc&vote_count.gte=200")}>Top Rated</button>
-      {movies.length > 0 && (
+      {/* {movies.length > 0 && (
         <ul>
           {movies.map((movie, i) => (
             <li key={i} value={movie.title}>
@@ -91,7 +92,8 @@ function PageHome() {
             </li>
           ))}
         </ul>
-      )}
+      )} */}
+      <HomeMovieSection movies={movies}/>
     </section>
   );
 }
