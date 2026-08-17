@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { appTitle, setOptions } from "../global/globals";
-import { min_date } from "../global/globals";
-import { max_date } from "../global/globals";
+import { min_date, max_date } from "../global/globals";
 import HeroBanner from "../components/HeroBanner";
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
