@@ -1,91 +1,34 @@
+import Carousel from "react-bootstrap/Carousel";
+import Image from "react-bootstrap/Image";
+import {useState } from "react";
+function HeroBanner({ movies }) {
+  const [index, setIndex] = useState(0);
 
-
-function HeroBanner() {
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
+  };
   return (
-    <section className="hero-banner">
-     	<input type="radio" name = "slider" id="radio-1" className="slider-state" defaultChecked/>
-	    <input type="radio" name = "slider" id="radio-2" className="slider-state"/>
-	    <input type="radio" name = "slider" id="radio-3" className="slider-state"/>
-        <input type="radio" name = "slider" id="radio-4" className="slider-state"/>
-        <input type="radio" name = "slider" id="radio-5" className="slider-state"/>
-        <input type="radio" name = "slider" id="radio-6" className="slider-state"/>
-        <input type="radio" name = "slider" id="radio-7" className="slider-state"/>
-        <div className="slider-viewport">
-            <div className="slide">
-                <img src="" alt="" />
-                <div className="slide-content">
-                    <span className="slide-tag">Test</span>
-                    <h2>Movie Title 1</h2>
-                    <p>This is a movie.</p>
-                    <a href="" className="slide-btn">More Info</a>
-                </div>
-            </div>
-            <div className="slide">
-                <img src="" alt="" />
-                <div className="slide-content">
-                    <span className="slide-tag">Test</span>
-                    <h2>Movie Title 2</h2>
-                    <p>This is a movie.</p>
-                    <a href="" className="slide-btn">More Info</a>
-                </div>
-            </div>
-            <div className="slide">
-                <img src="" alt="" />
-                <div className="slide-content">
-                    <span className="slide-tag">Test</span>
-                    <h2>Movie Title 3</h2>
-                    <p>This is a movie.</p>
-                    <a href="" className="slide-btn">More Info</a>
-                </div>
-            </div>
-            <div className="slide">
-                <img src="" alt="" />
-                <div className="slide-content">
-                    <span className="slide-tag">Test</span>
-                    <h2>Movie Title 4</h2>
-                    <p>This is a movie.</p>
-                    <a href="" className="slide-btn">More Info</a>
-                </div>
-            </div>
-            <div className="slide">
-                <img src="" alt="" />
-                <div className="slide-content">
-                    <span className="slide-tag">Test</span>
-                    <h2>Movie Title 5</h2>
-                    <p>This is a movie.</p>
-                    <a href="" className="slide-btn">More Info</a>
-                </div>
-            </div>
-            <div className="slide">
-                <img src="" alt="" />
-                <div className="slide-content">
-                    <span className="slide-tag">Test</span>
-                    <h2>Movie Title 6</h2>
-                    <p>This is a movie.</p>
-                    <a href="" className="slide-btn">More Info</a>
-                </div>
-            </div>
-            <div className="slide">
-                <img src="" alt="" />
-                <div className="slide-content">
-                    <span className="slide-tag">Test</span>
-                    <h2>Movie Title 7</h2>
-                    <p>This is a movie.</p>
-                    <a href="" className="slide-btn">More Info</a>
-                </div>
-            </div>
-        </div>
-
-        <div className="slider-nav">
-            <label htmlFor="radio-1"></label>
-            <label htmlFor="radio-2"></label>
-            <label htmlFor="radio-3"></label>
-            <label htmlFor="radio-4"></label>
-            <label htmlFor="radio-5"></label>
-            <label htmlFor="radio-6"></label>
-            <label htmlFor="radio-7"></label>
-        </div>
-    </section>
+    <Carousel activeIndex={index} onSelect={handleSelect}>
+      {movies.length > 0 && (
+        <ul>
+          {movies.map((movie, i) => (
+            <Carousel.Item interval={1000} key={i}>
+              <Image
+                src={
+                  "https://image.tmdb.org/t/p/original/" + movie.backdrop_path
+                }
+                alt={movie.title}
+                fluid
+              />
+              <Carousel.Caption>
+                <h3>{movie.title}</h3>
+                <p>{movie.overview}</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          ))}
+        </ul>
+      )}
+    </Carousel>
   );
 }
 
