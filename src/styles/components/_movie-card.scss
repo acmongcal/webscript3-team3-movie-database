@@ -1,0 +1,32 @@
+.movie-section {
+  margin-block: 2rem;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 18rem));
+  justify-content: center;
+  gap: 2rem;
+}
+
+.movie-card {
+  overflow: hidden;
+  background-color: #ffffff;
+  border-radius: calc(1rem / 2);
+  box-shadow: 0 calc(1rem / 4) 1rem rgb(0 0 0 / 15%);
+
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+  }
+}
+
+.movie-card-content {
+  padding: 1rem;
+
+  h3 {
+    margin-top: 0;
+  }
+}

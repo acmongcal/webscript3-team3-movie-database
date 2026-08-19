@@ -2,12 +2,14 @@ export const baseURL = "https://api.themoviedb.org/3/";
 export const appTitle = "Animovies";
 export const APP_FOLDER_NAME ="animovies";
 
+export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original/";
 
-
-export const min_date = new Date().toLocaleDateString();
+export const min_date = new Date(
+  Date.now() - 90 * 24 * 60 * 60 * 1000,
+).toISOString();
 export const max_date = new Date(
   Date.now() + 7 * 24 * 60 * 60 * 1000,
-).toLocaleDateString();
+).toISOString();
 
 export function setOptions(apiKey){
     const options = {
