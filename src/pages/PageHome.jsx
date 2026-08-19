@@ -10,6 +10,7 @@ function PageHome() {
   const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [pageNumber, setPageNumber] = useState(1);
     const [filter, setFilter] = useState("&sort_by=popularity.desc&with_release_type=1|2|3&primary_release_date.gte=${min_date}&primary_release_date.lte=${max_date}");
   
     useEffect(() => {
@@ -22,12 +23,11 @@ function PageHome() {
   
         try {
           const response = await fetch(
-            `https://api.themoviedb.org/3/discover/movie?include_adult=false$&language=en-US&page=1&${filter}&with_original_language=ja&with_origin_country=JP&with_keywords=210024`,
+            `https://api.themoviedb.org/3/discover/movie?include_adult=false$&language=en-US&page=${pageNumber}&${filter}&with_original_language=ja&with_origin_country=JP&with_keywords=210024`,
             options,
           );
   
           if (!response.ok) {
-            console.log(response);
             throw new Error("Movies not found");
           }
   
