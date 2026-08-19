@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Nav from "./Nav";
 
 function Header() {
@@ -10,7 +11,11 @@ function Header() {
 
   return (
     <header className="site-header">
-      <h1>Animovies</h1>
+      <h1>
+        <Link className="site-title-link" to="/">
+          Animovies
+        </Link>
+      </h1>
 
       <button
         className="menu-toggle"
