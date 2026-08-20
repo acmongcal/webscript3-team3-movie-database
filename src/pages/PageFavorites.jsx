@@ -39,7 +39,7 @@ function PageFavorites() {
     document.title = `${appTitle} - Favorites`;
   }, []);
 
-  // Load the starting favorites and recommendations once.
+  // Load the starting favorites once.
   useEffect(() => {
     const controller = new AbortController();
 
@@ -65,21 +65,7 @@ function PageFavorites() {
         }
       }
 
-      try {
-        const recommendations = await fetchRecommendedMovies(
-          FAVORITE_MOVIE_IDS,
-          API_KEY,
-          controller.signal,
-        );
-
-        if (!controller.signal.aborted) {
-          setRecommendedMovies(recommendations);
-        }
-      } catch (requestError) {
-        if (requestError.name !== "AbortError") {
-          setRecommendationsError(requestError.message);
-        }
-      } finally {
+      finally {
         if (!controller.signal.aborted) {
           setLoading(false);
         }
@@ -90,6 +76,42 @@ function PageFavorites() {
 
     return () => controller.abort();
   }, []);
+
+  // Ask TMDB for recommendations based on the current favorites.
+  useEffect(() => {
+    const controller = new AbortController();
+    const favoriteIds = favoriteMovies.map((movie) => movie.id);
+
+    async function loadRecommendations() {
+      setRecommendationsError(null);
+
+      if (!API_KEY || favoriteIds.length === 0) {
+        setRecommendedMovies([]);
+        return;
+      }
+
+      try {
+        const recommendations = await fetchRecommendedMovies(
+          favoriteIds,
+          API_KEY,
+          controller.signal,
+        );
+
+        if (!controller.signal.aborted) {
+          setRecommendedMovies(recommendations);
+        }
+      } catch (requestError) {
+        if (requestError.name !== "AbortError") {
+          setRecommendedMovies([]);
+          setRecommendationsError(requestError.message);
+        }
+      }
+    }
+
+    loadRecommendations();
+
+    return () => controller.abort();
+  }, [favoriteMovies]);
 
   if (loading) {
     return <p>Loading favorites...</p>;

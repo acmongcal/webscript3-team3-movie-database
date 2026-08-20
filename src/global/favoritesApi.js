@@ -23,6 +23,10 @@ export function fetchFavoriteMovies(movieIds, apiKey, signal) {
 
 // Load, combine, and clean Japanese recommendations.
 export async function fetchRecommendedMovies(movieIds, apiKey, signal) {
+  if (movieIds.length === 0) {
+    return [];
+  }
+
   const responses = await Promise.all(
     movieIds.map((id) =>
       fetchTmdb(`movie/${id}/recommendations`, apiKey, signal),
@@ -39,5 +43,12 @@ export async function fetchRecommendedMovies(movieIds, apiKey, signal) {
       .map((movie) => [movie.id, movie]),
   );
 
-  return [...recommendationsById.values()].slice(0, 5);
+  return [...recommendationsById.values()]
+    .sort((firstMovie, secondMovie) => {
+      const firstScore = firstMovie.vote_average * firstMovie.vote_count;
+      const secondScore = secondMovie.vote_average * secondMovie.vote_count;
+
+      return secondScore - firstScore;
+    })
+    .slice(0, 5);
 }
