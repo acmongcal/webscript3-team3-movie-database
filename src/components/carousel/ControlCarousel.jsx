@@ -20,7 +20,6 @@ function ControlledCarousel({ movies = [] }) {
     <Carousel
       activeIndex={index}
       onSelect={setIndex}
-      interval={5000}
       pause="hover"
       fade
     >
