@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Nav from "./Nav";
 
 function Footer() {
@@ -5,7 +6,11 @@ function Footer() {
     <footer className="site-footer">
       <div className="footer-content">
         <div className="footer-intro">
-          <h2>Animovies</h2>
+          <h2>
+            <Link className="footer-title-link" to="/" title="Go to the home page">
+              Animovies
+            </Link>
+          </h2>
           <p className="footer-description">
             an anime movie database created for fans who want an easy way to
             discover and explore animated films from Japan.

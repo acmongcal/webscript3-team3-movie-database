@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
@@ -9,6 +9,18 @@ function RecommendationsCarousel({ movies = [], error = null }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const recommendations = movies.slice(0, 5);
   const activeMovie = recommendations[activeIndex] ?? recommendations[0];
+
+  useEffect(() => {
+    if (recommendations.length <= 1) {
+      return undefined;
+    }
+
+    const autoplayTimer = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % recommendations.length);
+    }, 5000);
+
+    return () => window.clearInterval(autoplayTimer);
+  }, [recommendations.length]);
 
   function showPrevious() {
     setActiveIndex((current) =>
@@ -77,10 +89,6 @@ function RecommendationsCarousel({ movies = [], error = null }) {
           </>
         )}
       </div>
-
-      <p className="recommendation-position">
-        {activeIndex + 1} of {recommendations.length}
-      </p>
     </section>
   );
 }

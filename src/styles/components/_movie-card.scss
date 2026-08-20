@@ -10,6 +10,7 @@
 }
 
 .movie-card {
+  position: relative;
   overflow: hidden;
   background-color: #ffffff;
   border-radius: calc(1rem / 2);
@@ -28,5 +29,53 @@
 
   h3 {
     margin-top: 0;
+  }
+}
+
+@media (max-width: 40rem) {
+  .movie-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .movie-card-overview {
+    display: none;
+  }
+}
+
+// Devices with a mouse see the poster first and the details on interaction.
+@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
+  .movie-card-content {
+    position: absolute;
+    inset: 0;
+    justify-content: flex-end;
+    color: #fff;
+    background: linear-gradient(
+      to top,
+      rgb(0 0 0 / 75%) 0%,
+      rgb(0 0 0 / 50%) 65%,
+      rgb(0 0 0 / 10%) 100%
+    );
+    opacity: 0;
+    transform: translateY(1rem);
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+
+    .text-muted {
+      color: #ddd !important;
+    }
+  }
+
+  .movie-card:hover .movie-card-content,
+  .movie-card:focus-within .movie-card-content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .movie-card-content {
+    transition: none;
   }
 }

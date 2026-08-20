@@ -19,7 +19,7 @@ function MovieCard({
     : "Release date unavailable";
 
   return (
-    <Card className="h-100 shadow-sm">
+    <Card className="movie-card h-100 shadow-sm">
       <Card.Img
         variant="top"
         src={poster}
@@ -30,14 +30,14 @@ function MovieCard({
         }}
       />
 
-      <Card.Body className="d-flex flex-column">
+      <Card.Body className="movie-card-content d-flex flex-column">
         <Card.Title>{movie.title}</Card.Title>
 
         <Card.Subtitle className="mb-2 text-muted">
           {year} · ⭐ {movie.vote_average.toFixed(1)}
         </Card.Subtitle>
 
-        <Card.Text>
+        <Card.Text className="movie-card-overview">
           {movie.overview
             ? `${movie.overview.slice(0, 120)}${
                 movie.overview.length > 120 ? "…" : ""
