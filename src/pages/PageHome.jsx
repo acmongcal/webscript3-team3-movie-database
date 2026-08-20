@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { appTitle, setOptions } from "../global/globals";
-import { min_date } from "../global/globals";
-import { max_date } from "../global/globals";
+import { min_date, max_date } from "../global/globals";
+import HomeMovieSection from "../components/HomeMovieSection";
 import HeroBanner from "../components/HeroBanner";
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
@@ -22,7 +22,7 @@ function PageHome() {
   
         try {
           const response = await fetch(
-            `https://api.themoviedb.org/3/discover/movie?include_adult=false&${filter}&with_original_language=ja&with_origin_country=JP&with_keywords=210024`,
+            `https://api.themoviedb.org/3/discover/movie?include_adult=false$&language=en-US&page=1&${filter}&with_original_language=ja&with_origin_country=JP&with_keywords=210024`,
   
             options,
           );
@@ -71,10 +71,10 @@ function PageHome() {
   
   return (
     <section>
-      <HeroBanner/>
+      <HeroBanner movies={movies}/>
       <button
         onClick={() =>
-          setFilter(`with_release_type=1|2|3&primary_release_date.gte=${min_date}&primary_release_date.lte=${max_date}`)
+          setFilter(`sort_by=popularity.desc&with_release_type=1|2|3&primary_release_date.gte=${min_date}&primary_release_date.lte=${max_date}`)
         }
       >
         Now Playing
@@ -84,7 +84,7 @@ function PageHome() {
         Upcoming
       </button>
       <button onClick={() => setFilter("sort_by=vote_average.desc&vote_count.gte=200")}>Top Rated</button>
-      {movies.length > 0 && (
+      {/* {movies.length > 0 && (
         <ul>
           {movies.map((movie, i) => (
             <li key={i} value={movie.title}>
@@ -92,7 +92,8 @@ function PageHome() {
             </li>
           ))}
         </ul>
-      )}
+      )} */}
+      <HomeMovieSection movies={movies}/>
     </section>
   );
 }

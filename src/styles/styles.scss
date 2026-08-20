@@ -3,8 +3,11 @@
 @use './components/footer';
 @use './components/heroBanner';
 @use './components/movie-card';
+@use './components/recommendations-carousel';
 
 
 //-- Pages--//
 // About
 @use "./pages/about";
+
+@use './components/HomeMovieSection';
