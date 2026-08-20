@@ -36,6 +36,11 @@
 .footer-title-link {
   color: inherit;
   text-decoration: none;
+  transition: color 150ms ease;
+
+  &:hover {
+    color: #72c6ad;
+  }
 
   &:focus-visible {
     outline: calc(1rem / 8) solid #ffffff;
@@ -71,6 +76,7 @@
     color: #e8ecef;
     font-size: calc(7rem / 8);
     text-decoration: none;
+    transition: color 150ms ease;
 
     &:hover,
     &.active {

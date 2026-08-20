@@ -12,7 +12,7 @@ function Header() {
   return (
     <header className="site-header">
       <h1>
-        <Link className="site-title-link" to="/">
+        <Link className="site-title-link" to="/" title="Go to the home page">
           Animovies
         </Link>
       </h1>

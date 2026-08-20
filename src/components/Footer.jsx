@@ -7,7 +7,7 @@ function Footer() {
       <div className="footer-content">
         <div className="footer-intro">
           <h2>
-            <Link className="footer-title-link" to="/">
+            <Link className="footer-title-link" to="/" title="Go to the home page">
               Animovies
             </Link>
           </h2>
