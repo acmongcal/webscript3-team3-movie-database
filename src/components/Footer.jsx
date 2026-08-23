@@ -12,7 +12,7 @@ function Footer() {
             </Link>
           </h2>
           <p className="footer-description">
-            an anime movie database created for fans who want an easy way to
+            An anime movie database created for fans who want an easy way to
             discover and explore animated films from Japan.
           </p>
         </div>

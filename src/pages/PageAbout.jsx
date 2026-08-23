@@ -1,16 +1,14 @@
 import { useEffect } from "react";
 import { appTitle } from "../global/globals";
 import filmHero from "../assets/images/film-hero.jpg";
-import japaneseGarden from "../assets/images/japaneseGarden.jpg";
+
 function PageAbout() {
   useEffect(() => {
     document.title = `${appTitle} - About`;
     document.body.classList.add("about-background");
-    document.body.style.backgroundImage = `url(${japaneseGarden})`;
 
     return () => {
       document.body.classList.remove("about-background");
-      document.body.style.backgroundImage = "";
     };
   }, []);
   return (
