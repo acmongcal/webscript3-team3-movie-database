@@ -17,7 +17,10 @@ function Footer() {
           </p>
         </div>
         <section className="footer-links">
-          <Nav className="footer-nav" />
+          <div className="footer-nav-group">
+            <h3>Explore</h3>
+            <Nav className="footer-nav" />
+          </div>
           <div className="footer-contact">
             <h3>Contact Us</h3>
             <div id="footer-contact-us">Contact links images</div>
