@@ -1,27 +1,53 @@
-.about-page {
-  padding-block: 2rem 4rem;
-
-  > h2 {
-    margin-bottom: 3rem;
-    text-align: center;
-  }
+body.about-background {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-.about-content {
-  width: min(100%, 42rem);
-  margin-inline: auto;
+.about-page {
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
 
-  section + section {
-    margin-top: 3rem;
-  }
+  .about-wrapper {
+    width: min(100%, 60rem);
+    margin-inline: auto;
+    padding: 3rem;
+    color: #1a1a1a;
+    background-color: white;
 
-  h3 {
-    margin: 0 0 0.75rem;
-    color: #e6533c;
-  }
+    > h2 {
+      margin-bottom: 3rem;
+      text-align: center;
+      font-weight: bolder;
+    }
 
-  p {
-    margin: 0;
-    line-height: 1.75;
+    .about-hero {
+      display: block;
+      width: min(100%, 800px);
+      height: 400px;
+      object-fit: cover;
+      margin: 0 auto 3rem;
+    }
+
+    .about-content {
+      width: min(100%, 50rem);
+      margin-inline: auto;
+      font-size: 1.05rem;
+
+      section + section {
+        margin-top: 3rem;
+      }
+
+      h3 {
+        margin: 0 0 0.75rem;
+        color: #e6533c;
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.75;
+      }
+    }
   }
 }
