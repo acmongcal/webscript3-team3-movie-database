@@ -2,14 +2,14 @@ import { useState } from "react";
 import { FavoritesContext } from "./FavoritesContext";
 
 export function FavoritesProvider({ children }) {
-  const [favorites, setFavorites] = useState(null);
+  const [favorites, setFavorites] = useState([]);
 
   const addToFavorites = (newFavorite) => {
     const alreadyAdded = favorites.some(
       (favorite) => favorite.id === newFavorite.id,
     );
     if (!alreadyAdded) {
-      setFavorites([...favorites.newFavorite]);
+      setFavorites([...favorites, newFavorite]);
     }
   };
 

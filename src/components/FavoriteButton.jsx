@@ -1,9 +1,17 @@
-import {useState} from "react";
+import { useContext } from "react";
+import { FavoritesContext } from "../context/FavoritesContext";
+import Button from "react-bootstrap/Button";
 
-
-function FavoriteButton() {
+function FavoriteButton({ movie }) {
+  const { addToFavorites } = useContext(FavoritesContext);
   return (
-    <></>
+    <Button
+      type="button"
+      variant="outline-danger"
+      onClick={() => addToFavorites(movie)}
+    >
+      &hearts;
+    </Button>
   );
 }
 
