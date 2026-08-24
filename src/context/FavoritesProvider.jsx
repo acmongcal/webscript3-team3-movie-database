@@ -31,8 +31,7 @@ export function FavoritesProvider({ children }) {
 
   const removeFavorite = (movie) => {
     setFavorites(favorites.filter((m) => m.id !== movie.id));
-    console.log(favoritesForStorage);
-    const favoritesForStorage = JSON.stringify(favorites);
+    const favoritesForStorage = JSON.stringify(favorites.filter((m) => m.id !== movie.id));
     localStorage.setItem(localFavorites, favoritesForStorage);
   };
 
