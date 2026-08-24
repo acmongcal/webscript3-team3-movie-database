@@ -5,6 +5,9 @@ export const APP_FOLDER_NAME ="animovies";
 export const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500";
 export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original";
 
+//Local storage favorites
+export const localFavorites = '[]';
+
 export const min_date = new Date(
   Date.now() - 180 * 24 * 60 * 60 * 1000,
 ).toISOString();
