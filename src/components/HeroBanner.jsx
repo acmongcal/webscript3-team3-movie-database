@@ -9,6 +9,7 @@ function HeroBanner({ movies }) {
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
+
   return (
     <Carousel activeIndex={index} onSelect={handleSelect} controls={false}>
       {movieArray.map((movie, i) => (

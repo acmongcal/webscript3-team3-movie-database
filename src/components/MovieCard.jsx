@@ -1,15 +1,14 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { POSTER_BASE_URL } from "../global/globals";
+import { FavoritesContext } from "../context/FavoritesContext";
+import FavoriteButton from "./FavoriteButton";
+import UnfavoriteButton from "./UnfavoriteButton";
 
-const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500";
-
-function MovieCard({
-  movie,
-  isFavorite = false,
-  onAddFavorite,
-  onRemoveFavorite,
-}) {
+function MovieCard({ movie }) {
+  const { isMovieFavorite } = useContext(FavoritesContext);
   const poster = movie.poster_path
     ? `${POSTER_BASE_URL}${movie.poster_path}`
     : "/poster-placeholder.svg";
@@ -51,22 +50,10 @@ function MovieCard({
           </Button>
 
           {/* Show X for saved movies and a heart for unsaved movies. */}
-          {isFavorite ? (
-            <Button
-              type="button"
-              variant="danger"
-              onClick={() => onRemoveFavorite?.(movie.id)}
-            >
-              X
-            </Button>
+          {isMovieFavorite(movie) ? (
+            <UnfavoriteButton movie={movie} />
           ) : (
-            <Button
-              type="button"
-              variant="outline-danger"
-              onClick={() => onAddFavorite?.(movie)}
-            >
-              &hearts;
-            </Button>
+            <FavoriteButton movie={movie} />
           )}
         </div>
       </Card.Body>

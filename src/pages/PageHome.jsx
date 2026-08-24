@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { appTitle, setOptions } from "../global/globals";
 import HomeFilterNavigation from "../components/HomeFilterNavigation";
-import HomeMovieSection from "../components/HomeMovieSection";
+import MovieSection from "../components/MovieSection";
 import HeroBanner from "../components/HeroBanner";
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
@@ -55,24 +55,21 @@ function PageHome() {
       return () => {
         isMounted = false;
       };
-    }, [filter]);
+    }, [filter,pageNumber]);
 
     useEffect(()=>{
       document.title = `${appTitle} - Home`;
     },[]);
-    
-    if (loading) {
-      return <div>Loading movies...</div>;
-    }
     if (error) {
       return <div>Error: {error}</div>;
     }
   
   return (
     <section>
+      {loading && <div>Loading movies...</div>}
       <HeroBanner movies={movies}/>
       <HomeFilterNavigation setFilter={setFilter}/>
-      <HomeMovieSection movies={movies}/>
+      <MovieSection title="" movies={movies}/>
     </section>
   );
 }
