@@ -55,21 +55,18 @@ function PageHome() {
       return () => {
         isMounted = false;
       };
-    }, [filter]);
+    }, [filter,pageNumber]);
 
     useEffect(()=>{
       document.title = `${appTitle} - Home`;
     },[]);
-    
-    if (loading) {
-      return <div>Loading movies...</div>;
-    }
     if (error) {
       return <div>Error: {error}</div>;
     }
   
   return (
     <section>
+      {loading && <div>Loading movies...</div>}
       <HeroBanner movies={movies}/>
       <HomeFilterNavigation setFilter={setFilter}/>
       <HomeMovieSection movies={movies}/>
