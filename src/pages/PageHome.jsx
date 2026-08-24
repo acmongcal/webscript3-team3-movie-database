@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { appTitle, setOptions } from "../global/globals";
-import { min_date, max_date } from "../global/globals";
-import HomeMovieSection from "../components/HomeMovieSection";
+import HomeFilterNavigation from "../components/HomeFilterNavigation";
+import MovieSection from "../components/MovieSection";
 import HeroBanner from "../components/HeroBanner";
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
@@ -10,7 +10,8 @@ function PageHome() {
   const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [filter, setFilter] = useState("primary_release_date.desc");
+    const [pageNumber, setPageNumber] = useState(1);
+    const [filter, setFilter] = useState("&sort_by=popularity.desc&with_release_type=1|2|3&primary_release_date.gte=${min_date}&primary_release_date.lte=${max_date}");
   
     useEffect(() => {
       let isMounted = true;
@@ -22,13 +23,11 @@ function PageHome() {
   
         try {
           const response = await fetch(
-            `https://api.themoviedb.org/3/discover/movie?include_adult=false$&language=en-US&page=1&${filter}&with_original_language=ja&with_origin_country=JP&with_keywords=210024`,
-  
+            `https://api.themoviedb.org/3/discover/movie?include_adult=false$&language=en-US&page=${pageNumber}&${filter}&with_original_language=ja&with_origin_country=JP&with_keywords=210024`,
             options,
           );
   
           if (!response.ok) {
-            console.log(response);
             throw new Error("Movies not found");
           }
   
@@ -56,44 +55,21 @@ function PageHome() {
       return () => {
         isMounted = false;
       };
-    }, [filter]);
+    }, [filter,pageNumber]);
 
     useEffect(()=>{
       document.title = `${appTitle} - Home`;
     },[]);
-    
-    if (loading) {
-      return <div>Loading movies...</div>;
-    }
     if (error) {
       return <div>Error: {error}</div>;
     }
   
   return (
     <section>
+      {loading && <div>Loading movies...</div>}
       <HeroBanner movies={movies}/>
-      <button
-        onClick={() =>
-          setFilter(`sort_by=popularity.desc&with_release_type=1|2|3&primary_release_date.gte=${min_date}&primary_release_date.lte=${max_date}`)
-        }
-      >
-        Now Playing
-      </button>
-      <button onClick={() => setFilter("sort_by=popularity.desc")}>Popular</button>
-      <button onClick={() => setFilter("sort_by=primary_release_date.desc")}>
-        Upcoming
-      </button>
-      <button onClick={() => setFilter("sort_by=vote_average.desc&vote_count.gte=200")}>Top Rated</button>
-      {/* {movies.length > 0 && (
-        <ul>
-          {movies.map((movie, i) => (
-            <li key={i} value={movie.title}>
-              {movie.title}
-            </li>
-          ))}
-        </ul>
-      )} */}
-      <HomeMovieSection movies={movies}/>
+      <HomeFilterNavigation setFilter={setFilter}/>
+      <MovieSection title="" movies={movies}/>
     </section>
   );
 }
