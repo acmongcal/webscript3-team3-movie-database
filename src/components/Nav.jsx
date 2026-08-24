@@ -1,6 +1,12 @@
 import { NavLink } from 'react-router-dom';
 
 const Nav = ({ className = '' }) => {
+    const links = [
+        { to: '/', label: 'Home', title: 'Go to the home page' },
+        { to: '/about', label: 'About', title: 'Go to the about page' },
+        { to: '/favorites', label: 'Favorites', title: 'Go to your favorite movies' },
+    ];
+
     function blur(event) {
         event.currentTarget.blur();
     }
@@ -8,9 +14,13 @@ const Nav = ({ className = '' }) => {
     return (
         <nav className={className}>
             <ul>
-                <li><NavLink to="/" onClick={blur}>Home</NavLink></li>
-                <li><NavLink to="/about" onClick={blur}>About</NavLink></li>
-                <li><NavLink to="/favorites" onClick={blur}>Favorites</NavLink></li>
+                {links.map(({ to, label, title }) => (
+                    <li key={to}>
+                        <NavLink to={to} title={title} onClick={blur}>
+                            {label}
+                        </NavLink>
+                    </li>
+                ))}
             </ul>
         </nav>
     );
