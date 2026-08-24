@@ -12,12 +12,15 @@ function Footer() {
             </Link>
           </h2>
           <p className="footer-description">
-            an anime movie database created for fans who want an easy way to
+            An anime movie database created for fans who want an easy way to
             discover and explore animated films from Japan.
           </p>
         </div>
         <section className="footer-links">
-          <Nav className="footer-nav" />
+          <div className="footer-nav-group">
+            <h3>Explore</h3>
+            <Nav className="footer-nav" />
+          </div>
           <div className="footer-contact">
             <h3>Contact Us</h3>
             <div id="footer-contact-us">Contact links images</div>
