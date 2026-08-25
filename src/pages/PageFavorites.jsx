@@ -10,7 +10,6 @@ const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 function PageFavorites() {
   // Page data and request status.
   const [recommendedMovies, setRecommendedMovies] = useState([]);
-  const [error, setError] = useState(null);
   const [recommendationsError, setRecommendationsError] = useState(null);
   const { favorites } = useContext(FavoritesContext);
 
@@ -20,7 +19,9 @@ function PageFavorites() {
   // Ask TMDB for recommendations based on the current favorites.
   useEffect(() => {
     const controller = new AbortController();
-    const favoriteIds = favorites.map((movie) => movie.id);
+    const favoriteIds = favorites
+      .filter((movie) => movie && movie.id)
+      .map((movie) => movie.id);
 
     async function loadRecommendations() {
       setRecommendationsError(null);
@@ -43,7 +44,6 @@ function PageFavorites() {
       } catch (requestError) {
         
         if (requestError.name !== "AbortError") {
-          setError(requestError.message);
           setRecommendedMovies([]);
           setRecommendationsError(requestError.message);
         }
@@ -54,11 +54,6 @@ function PageFavorites() {
 
     return () => controller.abort();
   }, [favorites]);
-
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
 
   return (
     <div className="favorites-page">

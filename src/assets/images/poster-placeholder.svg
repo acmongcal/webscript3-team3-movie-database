@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" role="img" aria-labelledby="title description">
+  <title id="title">Poster unavailable</title>
+  <desc id="description">A placeholder shown when a movie poster is unavailable.</desc>
+  <rect width="400" height="600" fill="#20242a"/>
+  <rect x="45" y="45" width="310" height="510" fill="none" stroke="#e6533c" stroke-width="8"/>
+  <path d="M150 255h100v90H150z" fill="none" stroke="#e8ecef" stroke-width="10"/>
+  <path d="m185 275 55 25-55 25z" fill="#e6533c"/>
+  <text x="200" y="410" fill="#e8ecef" font-family="Arial, sans-serif" font-size="24" text-anchor="middle">POSTER UNAVAILABLE</text>
+</svg>

@@ -1,22 +1,21 @@
 import { useEffect } from "react";
 import { appTitle } from "../global/globals";
-import filmHero from "../assets/images/film-hero.jpg";
+import japaneseGarden from "../assets/images/japanese-garden.jpg";
 import TmdbAttribution from "../components/TmdbAttribution";
 
 function PageAbout() {
   useEffect(() => {
     document.title = `${appTitle} - About`;
-    document.body.classList.add("about-background");
-
-    return () => {
-      document.body.classList.remove("about-background");
-    };
   }, []);
   return (
     <section className="about-page">
       <div className="about-wrapper">
         <h2>About Animovies</h2>
-        <img className="about-hero" src={filmHero} alt="Film hero" />
+        <img
+          className="about-hero"
+          src={japaneseGarden}
+          alt="Japanese garden"
+        />
         <article className="about-content">
           <section>
             <h3>Our Story</h3>
@@ -50,7 +49,7 @@ function PageAbout() {
             </p>
           </section>
 
-          <section>
+          <section className="about-attribution">
             <h3>Data Attribution</h3>
             <TmdbAttribution />
           </section>

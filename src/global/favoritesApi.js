@@ -36,7 +36,8 @@ export async function fetchRecommendedMovies(movieIds, apiKey, signal) {
   const favoriteIds = new Set(movieIds);
   const recommendationsById = new Map(
     responses
-      .flatMap(({ results }) => results)
+      .flatMap(({ results }) => results || [])
+      .filter(Boolean)
       .filter((movie) => movie.original_language === "ja")
       .filter((movie) => !favoriteIds.has(movie.id))
       .filter((movie) => movie.backdrop_path || movie.poster_path)
@@ -45,8 +46,10 @@ export async function fetchRecommendedMovies(movieIds, apiKey, signal) {
 
   return [...recommendationsById.values()]
     .sort((firstMovie, secondMovie) => {
-      const firstScore = firstMovie.vote_average * firstMovie.vote_count;
-      const secondScore = secondMovie.vote_average * secondMovie.vote_count;
+      const firstScore =
+        (firstMovie.vote_average || 0) * (firstMovie.vote_count || 0);
+      const secondScore =
+        (secondMovie.vote_average || 0) * (secondMovie.vote_count || 0);
 
       return secondScore - firstScore;
     })
