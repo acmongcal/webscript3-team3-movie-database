@@ -1,13 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { appTitle } from "../global/globals";
+import { appTitle, IMAGE_BASE_URL } from "../global/globals";
+import { FavoritesContext } from "../context/FavoritesContext";
+import FavoriteButton from "../components/FavoriteButton";
+import UnfavoriteButton from "../components/UnfavoriteButton";
 
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
 function PageDetails() {
   const { id } = useParams();
+  const { isMovieFavorite } = useContext(FavoritesContext);
 
   const [movie, setMovie] = useState(null);
+  const [cast, setCast] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -18,23 +23,37 @@ function PageDetails() {
   useEffect(() => {
     async function fetchMovie() {
       try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}`,
-          {
-            method: "GET",
-            headers: {
-              accept: "application/json",
-              Authorization: `Bearer ${API_KEY}`,
-            },
+        const requestOptions = {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${API_KEY}`,
           },
-        );
+        };
 
-        if (!response.ok) {
+        const [movieResponse, creditsResponse] = await Promise.all([
+          fetch(`https://api.themoviedb.org/3/movie/${id}`, requestOptions),
+          fetch(
+            `https://api.themoviedb.org/3/movie/${id}/credits`,
+            requestOptions,
+          ),
+        ]);
+
+        if (!movieResponse.ok) {
           throw new Error("Movie could not be found.");
         }
 
-        const data = await response.json();
-        setMovie(data);
+        if (!creditsResponse.ok) {
+          throw new Error("Movie cast could not be loaded.");
+        }
+
+        const [movieData, creditsData] = await Promise.all([
+          movieResponse.json(),
+          creditsResponse.json(),
+        ]);
+
+        setMovie(movieData);
+        setCast(creditsData.cast || []);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -53,37 +72,88 @@ function PageDetails() {
     return <p>Error: {error}</p>;
   }
 
+  const poster = movie.poster_path
+    ? `${IMAGE_BASE_URL}${movie.poster_path}`
+    : "/poster-placeholder.svg";
+
   return (
-    <section className="movie-details">
-      <img
-        src={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-            : "https://placehold.co/500x750?text=No+Poster"
-        }
-        alt={
-          movie.poster_path ? `${movie.title} poster` : "No poster available"
-        }
-      />
+    <div className="movie-details-page">
+      <section
+        className="movie-details"
+        style={{ backgroundImage: `url("${poster}")` }}
+        aria-label={`${movie.title} movie details`}
+      >
+        <div className="movie-details-overlay">
+          <div className="movie-details-content">
+            <p className="movie-details-kicker">Movie details</p>
+            <h1>{movie.title}</h1>
 
-      <div>
-        <h2>{movie.title}</h2>
+            <div className="movie-details-meta">
+              <p>
+                <strong>Release date</strong>
+                <span>{movie.release_date || "Not available"}</span>
+              </p>
 
-        <p>
-          <strong>Release date:</strong> {movie.release_date || "Not available"}
-        </p>
+              <p>
+                <strong>Rating</strong>
+                <span>
+                  {movie.vote_average
+                    ? `${Math.round(movie.vote_average * 10)}%`
+                    : "Not rated"}
+                </span>
+              </p>
+            </div>
 
-        <p>
-          <strong>Rating:</strong>{" "}
-          {movie.vote_average
-            ? `${Math.round(movie.vote_average * 10)}%`
-            : "Not rated"}
-        </p>
+            <div className="movie-details-favorite">
+              {isMovieFavorite(movie) ? (
+                <UnfavoriteButton movie={movie} />
+              ) : (
+                <FavoriteButton movie={movie} />
+              )}
+            </div>
 
-        <h3>Overview</h3>
-        <p>{movie.overview || "No plot summary is available."}</p>
-      </div>
-    </section>
+            <div className="movie-details-overview">
+              <h2>Overview</h2>
+              <p>{movie.overview || "No plot summary is available."}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="movie-cast" aria-labelledby="movie-cast-heading">
+        <div className="movie-cast-inner">
+          <p className="movie-details-kicker">The voices behind the story</p>
+          <h2 id="movie-cast-heading">Characters &amp; voice actors</h2>
+
+          {cast.length > 0 ? (
+            <div className="movie-cast-grid">
+              {cast.slice(0, 20).map((actor) => {
+                const profile = actor.profile_path
+                  ? `${IMAGE_BASE_URL}${actor.profile_path}`
+                  : "/poster-placeholder.svg";
+
+                return (
+                  <article className="movie-cast-card" key={actor.credit_id}>
+                    <img
+                      src={profile}
+                      alt={`${actor.name}, voice actor for ${actor.character}`}
+                    />
+                    <div>
+                      <h3>{actor.character || "Unknown character"}</h3>
+                      <p>{actor.name}</p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="movie-cast-empty">
+              No cast information is available.
+            </p>
+          )}
+        </div>
+      </section>
+    </div>
   );
 }
 
