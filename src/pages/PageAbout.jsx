@@ -8,7 +8,7 @@ function PageAbout() {
     document.title = `${appTitle} - About`;
   }, []);
   return (
-    <section className="about-page">
+    <section className="about-page page-content">
       <div className="about-wrapper">
         <h2>About Animovies</h2>
         <img
