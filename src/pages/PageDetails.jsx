@@ -129,6 +129,14 @@ function PageDetails() {
               <h2>Overview</h2>
               <p>{movie.overview || "No plot summary is available."}</p>
             </div>
+
+            <div className="movie-details-genres" aria-label="Genres">
+              {(movie.genres || []).slice(0, 2).map((genre) => (
+                <span className="movie-details-genre" key={genre.id}>
+                  {genre.name}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
