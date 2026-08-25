@@ -4,6 +4,7 @@
 @use './components/heroBanner';
 @use './components/movie-card';
 @use './components/recommendations-carousel';
+@use './components/tmdb-attribution';
 
 
 //-- Pages--//
@@ -11,4 +12,3 @@
 @use "./pages/about";
 @use "./pages/PageDetails";
 
-@use './components/HomeMovieSection';

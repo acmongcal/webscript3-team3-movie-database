@@ -9,8 +9,12 @@ export function FavoritesProvider({ children }) {
     const favoritesFromStorage = localStorage.getItem(localFavorites);
     if (favoritesFromStorage) {
       try {
-        const tempFavorites= JSON.parse(favoritesFromStorage);
-        setFavorites(tempFavorites);
+        const tempFavorites = JSON.parse(favoritesFromStorage);
+        if (Array.isArray(tempFavorites)) {
+          setFavorites(tempFavorites);
+        } else {
+          localStorage.removeItem(localFavorites);
+        }
       } catch (error) {
         console.error("Error parsing favorites from localStorage:", error);
         localStorage.removeItem(localFavorites);
@@ -19,6 +23,10 @@ export function FavoritesProvider({ children }) {
   }, []);
 
   const addToFavorites = (newFavorite) => {
+    if (!newFavorite || !newFavorite.id) {
+      return;
+    }
+
     const alreadyAdded = favorites.some(
       (favorite) => favorite.id === newFavorite.id,
     );
@@ -30,12 +38,20 @@ export function FavoritesProvider({ children }) {
   };
 
   const removeFavorite = (movie) => {
+    if (!movie || !movie.id) {
+      return;
+    }
+
     setFavorites(favorites.filter((m) => m.id !== movie.id));
     const favoritesForStorage = JSON.stringify(favorites.filter((m) => m.id !== movie.id));
     localStorage.setItem(localFavorites, favoritesForStorage);
   };
 
   const isMovieFavorite = (movie) => {
+    if (!movie || !movie.id) {
+      return false;
+    }
+
     return favorites.some((m) => m.id === movie.id);
   };
 

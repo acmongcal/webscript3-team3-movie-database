@@ -7,6 +7,7 @@ function FavoriteButton({ movie }) {
   return (
     <Button
       type="button"
+      className="favorite-button"
       variant="outline-danger"
       onClick={() => addToFavorites(movie)}
     >
