@@ -13,6 +13,7 @@ function PageDetails() {
 
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]);
+  const [director, setDirector] = useState("Not available");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -54,6 +55,12 @@ function PageDetails() {
 
         setMovie(movieData);
         setCast(creditsData.cast || []);
+        setDirector(
+          creditsData.crew
+            ?.filter((crewMember) => crewMember.job === "Director")
+            .map((crewMember) => crewMember.name)
+            .join(", ") || "Not available",
+        );
       } catch (err) {
         setError(err.message);
       } finally {
@@ -101,6 +108,11 @@ function PageDetails() {
                     ? `${Math.round(movie.vote_average * 10)}%`
                     : "Not rated"}
                 </span>
+              </p>
+
+              <p>
+                <strong>Director</strong>
+                <span>{director}</span>
               </p>
             </div>
 
