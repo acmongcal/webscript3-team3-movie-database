@@ -136,7 +136,7 @@ function PageDetails() {
       <section className="movie-cast" aria-labelledby="movie-cast-heading">
         <div className="movie-cast-inner">
           <p className="movie-details-kicker">The voices behind the story</p>
-          <h2 id="movie-cast-heading">Characters &amp; Voice Actors</h2>
+          <h2 id="movie-cast-heading">Cast</h2>
 
           {cast.length > 0 ? (
             <div className="movie-cast-grid">
