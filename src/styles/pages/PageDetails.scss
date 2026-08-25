@@ -29,7 +29,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(0deg, rgba(8, 16, 19, 0.9), transparent 55%);
+  background: linear-gradient(0deg, #081013e6, transparent 55%);
 }
 
 .movie-details-overlay {
@@ -107,9 +107,30 @@
 
 .movie-details-overview p {
   margin: 0;
-  color: rgba(245, 240, 232, 0.88);
+  color: #f5f0e8e0;
   font-size: 1.05rem;
   line-height: 1.65;
+}
+
+.movie-details-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.movie-details-genre {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid #f2c14ecc;
+  border-radius: 999px;
+  color: #f2c14e;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .movie-cast {
@@ -142,8 +163,8 @@
   overflow: hidden;
   border-radius: 0.5rem;
   background: #fffdf8;
-  border: 1px solid rgba(23, 37, 42, 0.12);
-  box-shadow: 0 0.5rem 1.5rem rgba(23, 37, 42, 0.08);
+  border: 1px solid #17252a1f;
+  box-shadow: 0 0.5rem 1.5rem #17252a14;
 }
 
 .movie-cast-card img {
