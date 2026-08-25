@@ -48,9 +48,11 @@ a {
   flex-direction: column;
 }
 
-main {
+main{
+  flex: 1;
+}
+.page-content{
   width: min(100% - 2rem, 75rem);
   margin-inline: auto;
   padding-block: 2rem;
-  flex: 1;
 }

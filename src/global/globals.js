@@ -45,3 +45,15 @@ export const movieCastEndPoint =`movie/{movie_id}/credits`;
 
 //More details here -> https://developer.themoviedb.org/reference/search-movie
 export const searchEndPoint = "https://developer.themoviedb.org/reference/search-movie?query=";
+
+
+
+//Filters for home and anime movies
+export const animeFilterEndpoint = "https://api.themoviedb.org/3/discover/movie?include_adult=false$&language=en-US&with_original_language=ja&with_origin_country=JP&with_keywords=210024";
+
+export const nowPlayingEndpoint = `&sort_by=popularity.desc&with_release_type=1|2|3&primary_release_date.gte=${min_date}&primary_release_date.lte=${max_date}`;
+
+export const popularEndpoint = "&sort_by=popularity.desc";
+
+export const upcomingEndpoint = "&sort_by=primary_release_date.desc";
+export const topRatedEndpoint = "&sort_by=vote_average.desc&vote_count.gte=200";

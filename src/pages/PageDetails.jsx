@@ -5,7 +5,7 @@ function PageDetails() {
     document.title = `${appTitle} - Details`;
   }, []);
   return (
-    <section>
+    <section className="page-content">
       <h2>Movie Details</h2>
     </section>
   );
