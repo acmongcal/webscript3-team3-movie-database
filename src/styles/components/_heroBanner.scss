@@ -1,4 +1,10 @@
 .banner-cover{
-    width: 60rem;
-    height: 50rem;
+    width: 100vw;
+    height: 45rem;
+    object-fit: cover;
+}
+
+.carousel-indicators [data-bs-target]{
+    height: 1rem;
+    width: 5rem;
 }

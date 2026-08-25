@@ -61,7 +61,7 @@ function PageFavorites() {
   }
 
   return (
-    <div className="favorites-page">
+    <div className="favorites-page page-content">
       {/* Show a helpful message when the favorites list is empty. */}
       {favorites.length === 0 ? (
         <section className="movie-section">
