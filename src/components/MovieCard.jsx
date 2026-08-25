@@ -1,60 +1,92 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { POSTER_BASE_URL } from "../global/globals";
 import { FavoritesContext } from "../context/FavoritesContext";
+import { POSTER_BASE_URL } from "../global/globals";
+import posterPlaceholder from "../assets/images/poster-placeholder.svg";
 import FavoriteButton from "./FavoriteButton";
 import UnfavoriteButton from "./UnfavoriteButton";
 
 function MovieCard({ movie }) {
   const { isMovieFavorite } = useContext(FavoritesContext);
-  const poster = movie.poster_path
-    ? `${POSTER_BASE_URL}${movie.poster_path}`
-    : "/poster-placeholder.svg";
 
-  const year = movie.release_date
-    ? new Date(movie.release_date).getFullYear()
-    : "Release date unavailable";
+  let title = "Title unavailable";
+  if (movie.title) {
+    title = movie.title;
+  } else if (movie.original_title) {
+    title = movie.original_title;
+  }
+
+  let poster = posterPlaceholder;
+  if (movie.poster_path) {
+    poster = `${POSTER_BASE_URL}${movie.poster_path}`;
+  }
+
+  let year = "Release date unavailable";
+  if (movie.release_date) {
+    const releaseYear = new Date(movie.release_date).getFullYear();
+    if (!Number.isNaN(releaseYear)) {
+      year = releaseYear;
+    }
+  }
+
+  let rating = "Not rated";
+  if (typeof movie.vote_average === "number") {
+    rating = movie.vote_average.toFixed(1);
+  }
+
+  const overview = movie.overview || "";
+  const hasMovieId = Boolean(movie.id);
+
+  let shortOverview = "No description available.";
+  if (overview) {
+    shortOverview = overview.slice(0, 120);
+    if (overview.length > 120) {
+      shortOverview += "...";
+    }
+  }
 
   return (
     <Card className="movie-card h-100 shadow-sm">
       <Card.Img
         variant="top"
         src={poster}
-        alt={`${movie.title} poster`}
-        style={{
-          aspectRatio: "2 / 3",
-          objectFit: "cover",
-        }}
+        alt={`${title} poster`}
+        style={{ aspectRatio: "2 / 3", objectFit: "cover" }}
       />
 
       <Card.Body className="movie-card-content d-flex flex-column">
-        <Card.Title>{movie.title}</Card.Title>
-
+        <Card.Title>{title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
-          {year} · ⭐ {movie.vote_average.toFixed(1)}
+          {year} &middot; &#9733; {rating}
         </Card.Subtitle>
-
         <Card.Text className="movie-card-overview">
-          {movie.overview
-            ? `${movie.overview.slice(0, 120)}${
-                movie.overview.length > 120 ? "…" : ""
-              }`
-            : "No description available."}
+          {shortOverview}
         </Card.Text>
 
-        <div className="d-flex flex-wrap gap-2 mt-auto">
-          <Button as={Link} to={`/movie-details/${movie.id}`} variant="primary">
-            View Details
-          </Button>
-
-          {/* Show X for saved movies and a heart for unsaved movies. */}
-          {isMovieFavorite(movie) ? (
-            <UnfavoriteButton movie={movie} />
+        <div className="movie-card-actions mt-auto">
+          {hasMovieId ? (
+            <Button
+              className="movie-details-button"
+              as={Link}
+              to={`/movie-details/${movie.id}`}
+              variant="primary"
+            >
+              View Details
+            </Button>
           ) : (
-            <FavoriteButton movie={movie} />
+            <Button className="movie-details-button" variant="secondary" disabled>
+              Details unavailable
+            </Button>
           )}
+
+          {hasMovieId &&
+            (isMovieFavorite(movie) ? (
+              <UnfavoriteButton movie={movie} />
+            ) : (
+              <FavoriteButton movie={movie} />
+            ))}
         </div>
       </Card.Body>
     </Card>

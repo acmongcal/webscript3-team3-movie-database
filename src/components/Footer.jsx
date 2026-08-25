@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Nav from "./Nav";
+import TmdbAttribution from "./TmdbAttribution";
 
 function Footer() {
   return (
@@ -27,6 +28,7 @@ function Footer() {
           </div>
         </section>
       </div>
+      <TmdbAttribution />
       <p className="footer-copyright">
         &copy; {new Date().getFullYear()} Animovies
       </p>
