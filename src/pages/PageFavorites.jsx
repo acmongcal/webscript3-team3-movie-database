@@ -42,7 +42,6 @@ function PageFavorites() {
           setRecommendedMovies(recommendations);
         }
       } catch (requestError) {
-        
         if (requestError.name !== "AbortError") {
           setRecommendedMovies([]);
           setRecommendationsError(requestError.message);
@@ -64,10 +63,7 @@ function PageFavorites() {
           <p>You do not have any movies in your favorites.</p>
         </section>
       ) : (
-        <MovieSection
-          title="Favorite Movies"
-          movies={favorites}
-        />
+        <MovieSection title="Favorite Movies" movies={favorites} />
       )}
 
       <RecommendationsCarousel
