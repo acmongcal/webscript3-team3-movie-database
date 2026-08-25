@@ -1,5 +1,5 @@
 import { Button, ButtonGroup } from "react-bootstrap";
-import { min_date, max_date } from "../global/globals";
+import {nowPlayingEndpoint, popularEndpoint, upcomingEndpoint,topRatedEndpoint } from "../global/globals";
 import { useState } from "react";
 function HomeFilterNavigation({ setFilter }) {
   const [currentFilter, setCurrentFilter] = useState(1);
@@ -13,8 +13,7 @@ function HomeFilterNavigation({ setFilter }) {
       <Button variant="dark"
         onClick={(e) =>
           handleFilter(
-            e,
-            `&sort_by=popularity.desc&with_release_type=1|2|3&primary_release_date.gte=${min_date}&primary_release_date.lte=${max_date}`, 1
+            e,nowPlayingEndpoint, 1
           )
         }
         active = {currentFilter==1?true:false}
@@ -22,13 +21,13 @@ function HomeFilterNavigation({ setFilter }) {
         Now Playing
       </Button>
       <Button  variant="dark" 
-        onClick={(e) => handleFilter(e, "&sort_by=popularity.desc",2)}
+        onClick={(e) => handleFilter(e, popularEndpoint,2)}
         active = {currentFilter==2?true:false}
       >
         Popular
       </Button>
       <Button variant="dark"
-        onClick={(e) => handleFilter(e, "&sort_by=primary_release_date.desc",3)}
+        onClick={(e) => handleFilter(e,upcomingEndpoint,3)}
         active = {currentFilter==3?true:false}
       >
         Upcoming
@@ -36,7 +35,7 @@ function HomeFilterNavigation({ setFilter }) {
       </Button>
       <Button variant="dark"
         onClick={(e) =>
-          handleFilter(e, "&sort_by=vote_average.desc&vote_count.gte=200",4)
+          handleFilter(e, topRatedEndpoint,4)
         }
         active = {currentFilter==4?true:false}
       >

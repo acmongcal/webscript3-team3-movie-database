@@ -2,9 +2,22 @@
     width: 100vw;
     height: 45rem;
     object-fit: cover;
+    filter: brightness(.2);
 }
+
 
 .carousel-indicators [data-bs-target]{
     height: 1rem;
     width: 5rem;
+    background-color: #e6533c;
+}
+
+
+.carousel{
+    background: linear-gradient(
+      to top,
+      rgb(0 0 0 / 75%) 0%,
+      rgb(0 0 0 / 50%) 65%,
+      rgb(0 0 0 / 10%) 100%
+    );
 }
