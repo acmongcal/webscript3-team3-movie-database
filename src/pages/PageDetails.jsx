@@ -6,6 +6,7 @@ import FavoriteButton from "../components/FavoriteButton";
 import UnfavoriteButton from "../components/UnfavoriteButton";
 
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
+const PLACEHOLDER_POSTER = `${import.meta.env.BASE_URL}poster-placeholder.svg`;
 
 function PageDetails() {
   const { id } = useParams();
@@ -81,7 +82,7 @@ function PageDetails() {
 
   const poster = movie.poster_path
     ? `${IMAGE_BASE_URL}${movie.poster_path}`
-    : "/poster-placeholder.svg";
+    : PLACEHOLDER_POSTER;
 
   return (
     <div className="movie-details-page">
@@ -142,7 +143,7 @@ function PageDetails() {
               {cast.slice(0, 20).map((actor) => {
                 const profile = actor.profile_path
                   ? `${IMAGE_BASE_URL}${actor.profile_path}`
-                  : "/poster-placeholder.svg";
+                  : PLACEHOLDER_POSTER;
 
                 return (
                   <article className="movie-cast-card" key={actor.credit_id}>

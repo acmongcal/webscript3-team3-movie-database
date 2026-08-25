@@ -114,7 +114,6 @@
 
 .movie-cast {
   width: 100%;
-  background: #f5f0e8;
   color: #17252a;
 }
 
@@ -141,6 +140,7 @@
   flex: 1 1 12rem;
   max-width: 15rem;
   overflow: hidden;
+  border-radius: 0.5rem;
   background: #fffdf8;
   border: 1px solid rgba(23, 37, 42, 0.12);
   box-shadow: 0 0.5rem 1.5rem rgba(23, 37, 42, 0.08);
