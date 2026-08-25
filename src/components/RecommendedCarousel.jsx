@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import posterPlaceholder from "../assets/images/poster-placeholder.svg";
 
 const BACKDROP_URL = "https://image.tmdb.org/t/p/original";
 const POSTER_URL = "https://image.tmdb.org/t/p/w500";
@@ -8,7 +9,7 @@ const POSTER_URL = "https://image.tmdb.org/t/p/w500";
 function RecommendationsCarousel({ movies = [], error = null }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const recommendations = movies.slice(0, 5);
-  const activeMovie = recommendations[activeIndex] ?? recommendations[0];
+  const activeMovie = recommendations[activeIndex] || recommendations[0];
 
   useEffect(() => {
     if (recommendations.length <= 1) {
@@ -47,25 +48,35 @@ function RecommendationsCarousel({ movies = [], error = null }) {
     );
   }
 
-  const image = activeMovie.backdrop_path
-    ? `${BACKDROP_URL}${activeMovie.backdrop_path}`
-    : activeMovie.poster_path
-      ? `${POSTER_URL}${activeMovie.poster_path}`
-      : "/poster-placeholder.svg";
+  let image = posterPlaceholder;
+  if (activeMovie.backdrop_path) {
+    image = `${BACKDROP_URL}${activeMovie.backdrop_path}`;
+  } else if (activeMovie.poster_path) {
+    image = `${POSTER_URL}${activeMovie.poster_path}`;
+  }
+
+  const title = activeMovie.title || "Title unavailable";
+  const hasMovieId = Boolean(activeMovie.id);
 
   return (
     <section className="recommendations-carousel">
       <h2>Recommended Movies</h2>
 
       <div className="recommendation-slide">
-        <img src={image} alt={`${activeMovie.title} artwork`} />
+        <img src={image} alt={`${title} artwork`} />
 
         <div className="recommendation-content">
-          <h3>{activeMovie.title}</h3>
+          <h3>{title}</h3>
           <p>{activeMovie.overview || "No description available."}</p>
-          <Button as={Link} to={`/movie-details/${activeMovie.id}`}>
-            View Details
-          </Button>
+          {hasMovieId ? (
+            <Button as={Link} to={`/movie-details/${activeMovie.id}`}>
+              View Details
+            </Button>
+          ) : (
+            <Button variant="secondary" disabled>
+              Details unavailable
+            </Button>
+          )}
         </div>
 
         {recommendations.length > 1 && (
