@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { appTitle } from "../global/globals";
 import filmHero from "../assets/images/film-hero.jpg";
+import TmdbAttribution from "../components/TmdbAttribution";
 
 function PageAbout() {
   useEffect(() => {
@@ -47,6 +48,11 @@ function PageAbout() {
               explore new releases, revisit timeless classics, and learn more
               about the films and creators behind them.
             </p>
+          </section>
+
+          <section>
+            <h3>Data Attribution</h3>
+            <TmdbAttribution />
           </section>
         </article>
       </div>

@@ -44,8 +44,13 @@ function MovieCard({ movie }) {
             : "No description available."}
         </Card.Text>
 
-        <div className="d-flex flex-wrap gap-2 mt-auto">
-          <Button as={Link} to={`/movie-details/${movie.id}`} variant="primary">
+        <div className="movie-card-actions mt-auto">
+          <Button
+            className="movie-details-button"
+            as={Link}
+            to={`/movie-details/${movie.id}`}
+            variant="primary"
+          >
             View Details
           </Button>
 
