@@ -17,7 +17,8 @@ function HeroBanner({ movies }) {
         <Carousel.Item interval={4000} key={i}>
           <Image
             className="banner-cover"
-            src={movie.backdrop_path? IMAGE_BASE_URL + movie.backdrop_path:posterPlaceholder}
+            src={movie.backdrop_path? IMAGE_BASE_URL + movie.backdrop_path:
+              (movie.poster_path? IMAGE_BASE_URL + movie.poster_path:posterPlaceholder)}
             alt={movie.title}
           />
           <Carousel.Caption>
