@@ -5,10 +5,9 @@
 @use './components/movie-card';
 @use './components/recommendations-carousel';
 @use './components/tmdb-attribution';
-
+@use './components/homeFilterNavigation';
 
 //-- Pages--//
 // About
 @use "./pages/about";
 @use "./pages/PageDetails";
-

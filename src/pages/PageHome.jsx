@@ -10,6 +10,7 @@ function PageHome() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [heroGenres, setHeroGenres] = useState([]);
   const [filter, setFilter] = useState(nowPlayingEndpoint);
 
@@ -31,6 +32,8 @@ function PageHome() {
         }
 
         const initialJson = await response.json();
+        setTotalPages(initialJson.total_pages);
+        // console.log(initialJson.total_results);
         const data = initialJson.results;
         if (isMounted) {
           setMovies(data);
@@ -80,7 +83,12 @@ function PageHome() {
       {loading && <div>Loading movies...</div>}
       <HeroBanner movies={movies} />
       <div className="page-content">
-        <HomeFilterNavigation setFilter={setFilter} />
+        <HomeFilterNavigation 
+         setFilter={setFilter}
+         setPageNumber={setPageNumber}
+         totalPages={totalPages}
+         currentPageNumber={pageNumber}
+        />
         <MovieSection title="" movies={movies} />
       </div>
     </section>
