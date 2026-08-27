@@ -95,6 +95,7 @@ function PageDetails() {
   const poster = movie.poster_path
     ? `${IMAGE_BASE_URL}${movie.poster_path}`
     : posterPlaceholder;
+  console.log(movie.videos);
   const trailer = movie.videos?.results?.find(
     (video) =>
       video.site === "YouTube" && video.type === "Trailer" && video.key,
