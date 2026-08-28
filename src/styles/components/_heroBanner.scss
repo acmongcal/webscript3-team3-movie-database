@@ -21,3 +21,36 @@
       rgb(0 0 0 / 10%) 100%
     );
 }
+
+.banner-button-grp{
+    display: flex;
+    flex-wrap: wrap;
+    gap:1rem;
+}
+
+.banner-button-grp a{
+    --bs-btn-border-color:#e6533c;
+    --bs-btn-hover-border-color:#e6533c;
+}
+.hero-genre{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0;
+}
+
+.carousel-caption{
+    display: flex;
+    text-align: left;
+    top: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.banner-details{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 40rem;
+}

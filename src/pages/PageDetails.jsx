@@ -4,9 +4,9 @@ import { appTitle, IMAGE_BASE_URL } from "../global/globals";
 import { FavoritesContext } from "../context/FavoritesContext";
 import FavoriteButton from "../components/FavoriteButton";
 import UnfavoriteButton from "../components/UnfavoriteButton";
+import posterPlaceholder from "../assets/images/poster-placeholder.svg";
 
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
-const PLACEHOLDER_POSTER = `${import.meta.env.BASE_URL}poster-placeholder.svg`;
 
 function PageDetails() {
   const { id } = useParams();
@@ -14,6 +14,7 @@ function PageDetails() {
 
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]);
+  const [showAllCast, setShowAllCast] = useState(false);
   const [director, setDirector] = useState("Not available");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,26 +34,37 @@ function PageDetails() {
           },
         };
 
-        const [movieResponse, creditsResponse] = await Promise.all([
-          fetch(`https://api.themoviedb.org/3/movie/${id}`, requestOptions),
-          fetch(
-            `https://api.themoviedb.org/3/movie/${id}/credits`,
-            requestOptions,
-          ),
-        ]);
+        const movieResponse = await fetch(
+          `https://api.themoviedb.org/3/movie/${id}?append_to_response=keywords,videos`,
+          requestOptions,
+        );
 
         if (!movieResponse.ok) {
           throw new Error("Movie could not be found.");
         }
 
+        const movieData = await movieResponse.json();
+        const isAnimeMovie =
+          movieData.original_language === "ja" &&
+          movieData.origin_country?.includes("JP") &&
+          movieData.keywords?.keywords?.some(
+            (keyword) => keyword.id === 210024,
+          );
+
+        if (!isAnimeMovie) {
+          throw new Error("This movie is not available in the anime database.");
+        }
+
+        const creditsResponse = await fetch(
+          `https://api.themoviedb.org/3/movie/${id}/credits`,
+          requestOptions,
+        );
+
         if (!creditsResponse.ok) {
           throw new Error("Movie cast could not be loaded.");
         }
 
-        const [movieData, creditsData] = await Promise.all([
-          movieResponse.json(),
-          creditsResponse.json(),
-        ]);
+        const creditsData = await creditsResponse.json();
 
         setMovie(movieData);
         setCast(creditsData.cast || []);
@@ -82,7 +94,12 @@ function PageDetails() {
 
   const poster = movie.poster_path
     ? `${IMAGE_BASE_URL}${movie.poster_path}`
-    : PLACEHOLDER_POSTER;
+    : posterPlaceholder;
+  console.log(movie.videos);
+  const trailer = movie.videos?.results?.find(
+    (video) =>
+      video.site === "YouTube" && video.type === "Trailer" && video.key,
+  );
 
   return (
     <div className="movie-details-page">
@@ -115,6 +132,13 @@ function PageDetails() {
                 <strong>Director</strong>
                 <span>{director}</span>
               </p>
+
+              <p>
+                <strong>Runtime</strong>
+                <span>
+                  {movie.runtime ? `${movie.runtime} minutes` : "Not available"}
+                </span>
+              </p>
             </div>
 
             <div className="movie-details-favorite">
@@ -139,6 +163,17 @@ function PageDetails() {
             </div>
           </div>
         </div>
+
+        {trailer && (
+          <aside className="movie-details-trailer" aria-label="Movie trailer">
+            <iframe
+              src={`https://www.youtube.com/embed/${trailer.key}`}
+              title={`${movie.title} trailer`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </aside>
+        )}
       </section>
 
       <section className="movie-cast" aria-labelledby="movie-cast-heading">
@@ -147,26 +182,37 @@ function PageDetails() {
           <h2 id="movie-cast-heading">Cast</h2>
 
           {cast.length > 0 ? (
-            <div className="movie-cast-grid">
-              {cast.slice(0, 20).map((actor) => {
-                const profile = actor.profile_path
-                  ? `${IMAGE_BASE_URL}${actor.profile_path}`
-                  : PLACEHOLDER_POSTER;
+            <>
+              <div className="movie-cast-grid">
+                {cast.slice(0, showAllCast ? 20 : 5).map((actor) => {
+                  const profile = actor.profile_path
+                    ? `${IMAGE_BASE_URL}${actor.profile_path}`
+                    : posterPlaceholder;
 
-                return (
-                  <article className="movie-cast-card" key={actor.credit_id}>
-                    <img
-                      src={profile}
-                      alt={`${actor.name}, voice actor for ${actor.character}`}
-                    />
-                    <div>
-                      <h3>{actor.character || "Unknown character"}</h3>
-                      <p>{actor.name}</p>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
+                  return (
+                    <article className="movie-cast-card" key={actor.credit_id}>
+                      <img
+                        src={profile}
+                        alt={`${actor.name}, voice actor for ${actor.character}`}
+                      />
+                      <div>
+                        <h3>{actor.character || "Unknown character"}</h3>
+                        <p>{actor.name}</p>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+              {cast.length > 5 && (
+                <button
+                  className="movie-cast-show-more"
+                  type="button"
+                  onClick={() => setShowAllCast((isExpanded) => !isExpanded)}
+                >
+                  {showAllCast ? "Show less" : "Show more"}
+                </button>
+              )}
+            </>
           ) : (
             <p className="movie-cast-empty">
               No cast information is available.

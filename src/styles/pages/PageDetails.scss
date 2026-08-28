@@ -42,9 +42,30 @@
   color: #f5f0e8;
 }
 
+.movie-details-trailer {
+  position: absolute;
+  top: 50%;
+  right: clamp(1.25rem, 7vw, 7rem);
+  width: clamp(13rem, 25vw, 23rem);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  overflow: hidden;
+  border: 2px solid #ffb347;
+  border-radius: 0.5rem;
+  background: #081013;
+  box-shadow: 0 1rem 2.5rem rgba(8, 16, 19, 0.45);
+}
+
+.movie-details-trailer iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .movie-details-kicker {
   margin: 0 0 0.85rem;
-  color: #f2c14e;
+  color: #ffb347;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -72,7 +93,7 @@
 
 .movie-details-meta strong,
 .movie-details-overview h2 {
-  color: #f2c14e;
+  color: #ffb347;
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -97,7 +118,7 @@
 
 .movie-details-overview {
   max-width: 38rem;
-  border-left: 3px solid #f2c14e;
+  border-left: 3px solid #ffb347;
   padding-left: 1rem;
 }
 
@@ -124,9 +145,9 @@
   align-items: center;
   min-height: 2rem;
   padding: 0.35rem 0.8rem;
-  border: 1px solid #f2c14ecc;
+  border: 1px solid #ffb347cc;
   border-radius: 999px;
-  color: #f2c14e;
+  color: #ffb347;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -152,19 +173,29 @@
 }
 
 .movie-cast-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1.25rem;
 }
 
 .movie-cast-card {
-  flex: 1 1 12rem;
-  max-width: 15rem;
   overflow: hidden;
   border-radius: 0.5rem;
   background: #fffdf8;
   border: 1px solid #17252a1f;
   box-shadow: 0 0.5rem 1.5rem #17252a14;
+}
+
+.movie-cast-show-more {
+  display: block;
+  margin: 2rem auto 0;
+  border: 0;
+  border-radius: 0.35rem;
+  padding: 0.75rem 1.25rem;
+  background: #15181c;
+  color: #ffb347;
+  cursor: pointer;
+  font-weight: 700;
 }
 
 .movie-cast-card img {
@@ -215,8 +246,19 @@
     padding: 4rem 1.25rem 3rem;
   }
 
+  .movie-details-trailer {
+    top: auto;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    width: 13rem;
+    transform: none;
+  }
+
   .movie-cast-card {
-    flex-basis: calc(50% - 0.625rem);
-    max-width: none;
+    grid-column: span 1;
+  }
+
+  .movie-cast-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
