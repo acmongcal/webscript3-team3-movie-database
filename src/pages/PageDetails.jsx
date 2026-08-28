@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import {
   appTitle,
   IMAGE_BASE_URL,
-  setOptions,
   ytUrl,
   vimeoUrl,
 } from "../global/globals";
+import { setOptions } from "../utilities/functions";
 import { FavoritesContext } from "../context/FavoritesContext";
 import FavoriteButton from "../components/FavoriteButton";
 import UnfavoriteButton from "../components/UnfavoriteButton";

@@ -1,4 +1,16 @@
-import { baseURL, setOptions } from "./globals";
+import { baseURL } from "../global/globals";
+
+export function setOptions(apiKey){
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: "Bearer " + apiKey,
+      }
+    };
+    return options;
+}
+
 
 // Fetch one TMDB endpoint and return its JSON data.
 async function fetchTmdb(path, apiKey, signal) {
@@ -14,12 +26,6 @@ async function fetchTmdb(path, apiKey, signal) {
   return response.json();
 }
 
-// Load full movie details for each saved TMDB ID.
-export function fetchFavoriteMovies(movieIds, apiKey, signal) {
-  return Promise.all(
-    movieIds.map((id) => fetchTmdb(`movie/${id}`, apiKey, signal)),
-  );
-}
 
 // Load, combine, and clean Japanese recommendations.
 export async function fetchRecommendedMovies(movieIds, apiKey, signal) {

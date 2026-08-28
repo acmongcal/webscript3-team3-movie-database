@@ -1,6 +1,7 @@
 import { Carousel, Image, Button } from "react-bootstrap";
 import { useState, useContext, useEffect } from "react";
-import { IMAGE_BASE_URL, setOptions } from "../global/globals";
+import { IMAGE_BASE_URL} from "../global/globals";
+import { setOptions } from "../utilities/functions";
 import posterPlaceholder from "../assets/images/poster-placeholder.svg";
 import FavoriteButton from "./FavoriteButton";
 import UnfavoriteButton from "./UnfavoriteButton";
