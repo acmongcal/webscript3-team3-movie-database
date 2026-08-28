@@ -2,8 +2,6 @@ import { Carousel, Image, Button } from "react-bootstrap";
 import { useState, useContext, useEffect } from "react";
 import {
   IMAGE_BASE_URL,
-  animeFilterEndpoint,
-  popularEndpoint,
   setOptions,
 } from "../global/globals";
 import posterPlaceholder from "../assets/images/poster-placeholder.svg";
@@ -13,14 +11,8 @@ import { Link } from "react-router-dom";
 import { FavoritesContext } from "../context/FavoritesContext";
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
-function HeroBanner() {
+function HeroBanner({movies}) {
   const { isMovieFavorite } = useContext(FavoritesContext);
-  const [index, setIndex] = useState(0);
-  const handleSelect = (selectedIndex) => {
-    setIndex(selectedIndex);
-  };
-  const [bannerMovies, setBannerMovies] = useState([]);
-  const [genres, setGenres] = useState([]);
   const [heroGenres, setHeroGenres] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -32,7 +24,8 @@ function HeroBanner() {
       const options = setOptions(API_KEY);
 
       try {
-        const response = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en',
+        const response = await fetch(
+          "https://api.themoviedb.org/3/genre/movie/list?language=en",
           options,
         );
 
@@ -43,13 +36,16 @@ function HeroBanner() {
         const initialJson = await response.json();
         const data = initialJson.genres;
         if (isMounted) {
-          setGenres(data);
           setLoading(false);
+          setHeroGenres(
+            movies.map(({ genre_ids }) =>
+              genre_ids.map((id) => data?.find((el) => el.id === id).name),
+            )
+          );
         }
       } catch (err) {
         if (isMounted) {
           setError(err.message);
-          setGenres([]);
           setLoading(false);
         }
       }
@@ -59,50 +55,15 @@ function HeroBanner() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [movies]);
 
-  useEffect(() => {
-    let isMounted = true;
-    const fetchBannerMovies = async () => {
-      setLoading(true);
-      setError(null);
-      const options = setOptions(API_KEY);
-
-      try {
-        const response = await fetch(
-          `${animeFilterEndpoint}&page=1&${popularEndpoint}`,
-          options,
-        );
-
-        if (!response.ok) {
-          throw new Error("Movies not found");
-        }
-
-        const initialJson = await response.json();
-        const data = initialJson.results.slice(0, 6);
-        if (isMounted) {
-          setBannerMovies(data);
-          setHeroGenres(bannerMovies.map(({ genre_ids }) => genre_ids.map(id => genres?.find(el => el.id === id).name)));
-          setLoading(false);
-        }
-      } catch (err) {
-        if (isMounted) {
-          setError(err.message);
-          setBannerMovies(null);
-          setLoading(false);
-        }
-      }
-    };
-    fetchBannerMovies();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [genres, bannerMovies]);
-  const movieArray = bannerMovies.slice(0, 6);
+  // if(loading){
+  //   return  <div>Loading banner...</div>
+  // }
+  const bannerArray = movies?.slice(0,6);
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect} controls={false}>
-      {movieArray.map((movie, i) => (
+    <Carousel controls={false}>
+      {bannerArray?.map((movie, i) => (
         <Carousel.Item interval={4000} key={i}>
           <Image
             className="banner-cover"
@@ -116,18 +77,19 @@ function HeroBanner() {
             alt={movie.title}
           />
           <Carousel.Caption>
-            <h3>{movie.title}</h3>
-            <ul>
-              {heroGenres && heroGenres[i]?.map((genre,i)=>(
-                <li key={i}>{genre}</li>
-              ))}
-            </ul>
-            <p>{movie.overview}</p>
-            <div>
+            <div className="banner-details">
+              <h2>{movie.title}</h2>
+              <ul className="hero-genre">
+                {heroGenres &&
+                  heroGenres[i]?.map((genre, i) => <li key={i}>{genre}</li>)}
+              </ul>
+              <p>{movie.overview}</p>
+            </div>
+            <div className="banner-button-grp">
               <Button
                 as={Link}
                 to={`/movie-details/${movie.id}`}
-                variant="primary"
+                variant="dark"
               >
                 View Details
               </Button>

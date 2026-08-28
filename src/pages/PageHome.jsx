@@ -63,7 +63,7 @@ function PageHome() {
   return (
     <section>
       {loading && <div>Loading movies...</div>}
-      <HeroBanner />
+      <HeroBanner movies={movies} />
       <div className="page-content">
         <HomeFilterNavigation 
          setFilter={setFilter}
