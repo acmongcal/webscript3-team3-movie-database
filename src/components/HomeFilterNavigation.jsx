@@ -1,14 +1,19 @@
-import { Button, ButtonGroup } from "react-bootstrap";
+// React imports
+import { useState, useEffect } from "react";
+import useIsMobile from "../hooks/useIsMobile";
+
+// Javascript imports
 import {
   nowPlayingEndpoint,
   popularEndpoint,
   upcomingEndpoint,
   topRatedEndpoint,
 } from "../global/globals";
-import { useState, useEffect } from "react";
-import { Pagination } from "react-bootstrap";
-import Dropdown from "react-bootstrap/Dropdown";
-import useIsMobile from "../hooks/useIsMobile";
+
+//Bootstrap component imports
+import { Button, ButtonGroup, Dropdown, Pagination } from "react-bootstrap";
+
+
 function HomeFilterNavigation({
   setFilter,
   setPageNumber,

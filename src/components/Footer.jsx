@@ -1,5 +1,8 @@
+// React imports
 import { Link } from "react-router-dom";
 import Nav from "./Nav";
+
+// Component imports
 import TmdbAttribution from "./TmdbAttribution";
 
 function Footer() {

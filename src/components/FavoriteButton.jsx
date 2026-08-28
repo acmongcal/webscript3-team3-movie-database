@@ -1,5 +1,8 @@
+// React imports
 import { useContext } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
+
+// Bootstrap Components
 import Button from "react-bootstrap/Button";
 
 function FavoriteButton({ movie }) {

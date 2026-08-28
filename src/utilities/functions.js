@@ -1,5 +1,6 @@
-import { baseURL } from "../global/globals";
+import { baseURL, animeFilterEndpoint, popularEndpoint} from "../global/globals";
 
+//Set options for api call
 export function setOptions(apiKey){
     const options = {
       method: "GET",
@@ -30,7 +31,8 @@ async function fetchTmdb(path, apiKey, signal) {
 // Load, combine, and clean Japanese recommendations.
 export async function fetchRecommendedMovies(movieIds, apiKey, signal) {
   if (movieIds.length === 0) {
-    return [];
+    const responses = await Promise.all(fetchTmdb(`${animeFilterEndpoint}${popularEndpoint}`, apiKey, signal));
+    return (responses.flatMap(({ results }) => results)).slice(0, 5);
   }
 
   const responses = await Promise.all(

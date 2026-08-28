@@ -1,10 +1,18 @@
+// React imports
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 import { FavoritesContext } from "../context/FavoritesContext";
+
+// Javascript imports
 import { POSTER_BASE_URL } from "../global/globals";
+
+// Asset imports
 import posterPlaceholder from "../assets/images/poster-placeholder.svg";
+
+//Bootstrap component imports
+import { Button,Card} from "react-bootstrap";
+
+// Component imports
 import FavoriteButton from "./FavoriteButton";
 import UnfavoriteButton from "./UnfavoriteButton";
 

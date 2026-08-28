@@ -1,6 +1,9 @@
+// React imports
 import { useContext } from "react";
-import Button from "react-bootstrap/Button";
 import { FavoritesContext } from "../context/FavoritesContext";
+
+//Bootstrap component imports
+import Button from "react-bootstrap/Button";
 
 function UnfavoriteButton({ movie }) {
   const {removeFavorite} = useContext(FavoritesContext);
