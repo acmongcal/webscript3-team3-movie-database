@@ -1,76 +1,75 @@
-.banner-cover{
-    width: 100vw;
-    height: 45rem;
-    object-fit: cover;
-    filter: brightness(.3);
+.banner-cover {
+  width: 100vw;
+  height: 45rem;
+  object-fit: cover;
+  filter: brightness(0.3);
 }
 
-
-.carousel-indicators [data-bs-target]{
-    height: 1rem;
-    width: 5rem;
-    background-color: #e6533c;
+.carousel-indicators [data-bs-target] {
+  height: 1rem;
+  width: 5rem;
+  background-color: #e6533c;
 }
 
-
-.carousel{
-    background: linear-gradient(
-      to top,
-      rgb(0 0 0 / 75%) 0%,
-      rgb(0 0 0 / 50%) 65%,
-      rgb(0 0 0 / 10%) 100%
-    );
+.carousel {
+  background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 75%) 0%,
+    rgb(0 0 0 / 50%) 65%,
+    rgb(0 0 0 / 10%) 100%
+  );
 }
 
-.banner-button-grp{
-    display: flex;
-    flex-wrap: wrap;
-    gap:1rem;
+.banner-button-grp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.banner-button-grp a{
-    --bs-btn-border-color:#ffb347;
-    --bs-btn-hover-border-color:#e6533c;
-    --bs-btn-hover-color:#72c6ad;
-    --bs-btn-hover-bg: #20242a;
+.banner-button-grp a {
+  --bs-btn-border-color: #ffb347;
+  --bs-btn-hover-border-color: #e6533c;
+  --bs-btn-hover-color: #72c6ad;
+  --bs-btn-hover-bg: #20242a;
 }
-.hero-genre{
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding: 0;
-}
-
-.hero-genre li{
-    min-height: 2rem;
-    padding: 0.35rem 0.8rem;
-    border: 1px solid #ffb347cc;
-    border-radius: 999px;
-    color: #ffb347;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+.hero-genre {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0;
 }
 
-.carousel-caption{
-    display: flex;
-    text-align: left;
-    top: 1rem;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+.hero-genre li {
+  min-height: 2rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid #ffb347cc;
+  border-radius: 999px;
+  color: #ffb347;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.banner-details{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    width: 40rem;
+.carousel-caption {
+  display: flex;
+  text-align: left;
+  top: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
-.banner-details p{
-    border-left: 3px solid #ffb347;
-    padding: 1rem;
+.banner-details {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 40rem;
+}
+
+.banner-details p {
+  border-left: 3px solid #ffb347;
+  padding: 1rem;
 }

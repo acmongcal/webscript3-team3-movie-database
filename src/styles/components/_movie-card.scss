@@ -39,6 +39,15 @@
   .movie-details-button {
     flex: 1;
     white-space: nowrap;
+
+    &.btn-primary {
+      --bs-btn-color: #ffffff;
+      --bs-btn-bg: #212529;
+      --bs-btn-border-color: #ffb347;
+      --bs-btn-hover-color: #72c6ad;
+      --bs-btn-hover-bg: #20242a;
+      --bs-btn-hover-border-color: #e6533c;
+    }
   }
 
   .favorite-button {
