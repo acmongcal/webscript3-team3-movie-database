@@ -73,3 +73,14 @@
   border-left: 3px solid #ffb347;
   padding: 1rem;
 }
+
+@media (max-width: 40rem) {
+  .carousel-caption {
+    right: 5%;
+    left: 5%;
+  }
+
+  .banner-details {
+    width: 100%;
+  }
+}
