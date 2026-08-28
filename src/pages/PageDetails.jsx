@@ -1,17 +1,26 @@
+// React imports
 import {useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { FavoritesContext } from "../context/FavoritesContext";
+
+// Javascript imports
 import {
   appTitle,
   IMAGE_BASE_URL,
   ytUrl,
   vimeoUrl,
+  baseURL
 } from "../global/globals";
 import { setOptions } from "../utilities/functions";
-import { FavoritesContext } from "../context/FavoritesContext";
-import FavoriteButton from "../components/FavoriteButton";
-import UnfavoriteButton from "../components/UnfavoriteButton";
+
+// Asset imports
 import posterPlaceholder from "../assets/images/poster-placeholder.svg";
 
+// Component imports
+import FavoriteButton from "../components/FavoriteButton";
+import UnfavoriteButton from "../components/UnfavoriteButton";
+
+//Constants
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 const INITIAL_CAST_COUNT = 5;
 const MAX_CAST_COUNT = 20;
@@ -37,7 +46,7 @@ function PageDetails() {
         const options = setOptions(API_KEY);
 
         const movieResponse = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?append_to_response=keywords,videos`,
+          `${baseURL}movie/${id}?append_to_response=keywords,videos`,
           options,
         );
 
@@ -58,7 +67,7 @@ function PageDetails() {
         }
 
         const creditsResponse = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}/credits`,
+          `${baseURL}movie/${id}/credits`,
           options,
         );
 

@@ -1,3 +1,4 @@
+// Component imports
 import MovieCard from "./MovieCard";
 
 function MovieSection({ title, movies = [] }) {

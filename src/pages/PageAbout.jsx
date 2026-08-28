@@ -1,6 +1,13 @@
+// React imports
 import { useEffect } from "react";
+
+// Javascript imports
 import { appTitle } from "../global/globals";
+
+// Asset imports
 import japaneseGarden from "../assets/images/japanese-garden.jpg";
+
+// Component imports
 import TmdbAttribution from "../components/TmdbAttribution";
 
 function PageAbout() {
