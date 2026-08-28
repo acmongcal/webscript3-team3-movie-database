@@ -127,6 +127,13 @@ function PageDetails() {
                 <strong>Director</strong>
                 <span>{director}</span>
               </p>
+
+              <p>
+                <strong>Runtime</strong>
+                <span>
+                  {movie.runtime ? `${movie.runtime} minutes` : "Not available"}
+                </span>
+              </p>
             </div>
 
             <div className="movie-details-favorite">
