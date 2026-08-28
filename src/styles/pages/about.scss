@@ -1,13 +1,11 @@
 .about-page {
   padding: 0.5rem 1rem;
   background-color: #eee;
-  background-image: radial-gradient(#20242a 0.7px, transparent 0.7px);
-  background-size: 0.5rem 0.5rem;
 
   .about-wrapper {
     overflow: hidden;
     width: min(100%, 60rem);
-    margin-inline: auto;
+    margin: 2rem auto;
     padding-bottom: 3rem;
     color: #1a1a1a;
     background-color: #fff;
