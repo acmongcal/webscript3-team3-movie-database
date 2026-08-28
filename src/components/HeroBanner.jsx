@@ -50,7 +50,7 @@ function HeroBanner({ movies }) {
           setHeroGenres(
             movies.map(({ genre_ids }) =>
               genre_ids.map((id) => data?.find((el) => el.id === id).name),
-            ),
+            )
           );
         }
       } catch (err) {
@@ -120,7 +120,7 @@ function HeroBanner({ movies }) {
                 to={`/movie-details/${movie.id}`}
                 variant="dark"
               >
-                More Info
+                View Details
               </Button>
               {isMovieFavorite(movie) ? (
                 <UnfavoriteButton movie={movie} />
