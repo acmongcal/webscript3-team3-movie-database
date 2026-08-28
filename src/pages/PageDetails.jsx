@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { appTitle, IMAGE_BASE_URL } from "../global/globals";
+import { appTitle, IMAGE_BASE_URL, setOptions } from "../global/globals";
 import { FavoritesContext } from "../context/FavoritesContext";
 import FavoriteButton from "../components/FavoriteButton";
 import UnfavoriteButton from "../components/UnfavoriteButton";
 import posterPlaceholder from "../assets/images/poster-placeholder.svg";
 
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
+const INITIAL_CAST_COUNT = 5;
+const MAX_CAST_COUNT = 20;
 
 function PageDetails() {
   const { id } = useParams();
@@ -14,7 +16,7 @@ function PageDetails() {
 
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]);
-  const [showAllCast, setShowAllCast] = useState(false);
+  const [isCastExpanded, setIsCastExpanded] = useState(false);
   const [director, setDirector] = useState("Not available");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,17 +28,11 @@ function PageDetails() {
   useEffect(() => {
     async function fetchMovie() {
       try {
-        const requestOptions = {
-          method: "GET",
-          headers: {
-            accept: "application/json",
-            Authorization: `Bearer ${API_KEY}`,
-          },
-        };
+        const options = setOptions(API_KEY);
 
         const movieResponse = await fetch(
           `https://api.themoviedb.org/3/movie/${id}?append_to_response=keywords,videos`,
-          requestOptions,
+          options,
         );
 
         if (!movieResponse.ok) {
@@ -57,7 +53,7 @@ function PageDetails() {
 
         const creditsResponse = await fetch(
           `https://api.themoviedb.org/3/movie/${id}/credits`,
-          requestOptions,
+          options,
         );
 
         if (!creditsResponse.ok) {
@@ -183,32 +179,40 @@ function PageDetails() {
           {cast.length > 0 ? (
             <>
               <div className="movie-cast-grid">
-                {cast.slice(0, showAllCast ? 20 : 5).map((actor) => {
-                  const profile = actor.profile_path
-                    ? `${IMAGE_BASE_URL}${actor.profile_path}`
-                    : posterPlaceholder;
+                {cast
+                  .slice(
+                    0,
+                    isCastExpanded ? MAX_CAST_COUNT : INITIAL_CAST_COUNT,
+                  )
+                  .map((actor) => {
+                    const profile = actor.profile_path
+                      ? `${IMAGE_BASE_URL}${actor.profile_path}`
+                      : posterPlaceholder;
 
-                  return (
-                    <article className="movie-cast-card" key={actor.credit_id}>
-                      <img
-                        src={profile}
-                        alt={`${actor.name}, voice actor for ${actor.character}`}
-                      />
-                      <div>
-                        <h3>{actor.character || "Unknown character"}</h3>
-                        <p>{actor.name}</p>
-                      </div>
-                    </article>
-                  );
-                })}
+                    return (
+                      <article
+                        className="movie-cast-card"
+                        key={actor.credit_id}
+                      >
+                        <img
+                          src={profile}
+                          alt={`${actor.name}, voice actor for ${actor.character}`}
+                        />
+                        <div>
+                          <h3>{actor.character || "Unknown character"}</h3>
+                          <p>{actor.name}</p>
+                        </div>
+                      </article>
+                    );
+                  })}
               </div>
-              {cast.length > 5 && (
+              {cast.length > INITIAL_CAST_COUNT && (
                 <button
                   className="movie-cast-show-more"
                   type="button"
-                  onClick={() => setShowAllCast((isExpanded) => !isExpanded)}
+                  onClick={() => setIsCastExpanded((isExpanded) => !isExpanded)}
                 >
-                  {showAllCast ? "Show less" : "Show more"}
+                  {isCastExpanded ? "Show less" : "Show more"}
                 </button>
               )}
             </>
