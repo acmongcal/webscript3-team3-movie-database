@@ -1,4 +1,4 @@
-import { baseURL, animeFilterEndpoint, popularEndpoint} from "../global/globals";
+import { baseURL} from "../global/globals";
 
 //Set options for api call
 export function setOptions(apiKey){
