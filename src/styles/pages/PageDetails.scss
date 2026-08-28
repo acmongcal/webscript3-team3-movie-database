@@ -74,6 +74,7 @@
   margin: 0;
   font-size: clamp(2.5rem, 6vw, 5.5rem);
   line-height: 0.98;
+  overflow-wrap: anywhere;
 }
 
 .movie-details-meta {
