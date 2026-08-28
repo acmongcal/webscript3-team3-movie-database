@@ -11,7 +11,7 @@ import {
   vimeoUrl,
   baseURL,
 } from "../global/globals";
-import { setOptions } from "../utilities/functions";
+import { setOptions, setMetaDescription } from "../utilities/functions";
 
 // Asset imports
 import posterPlaceholder from "../assets/images/poster-placeholder.svg";
@@ -38,6 +38,7 @@ function PageDetails() {
 
   useEffect(() => {
     document.title = `${appTitle} - Details`;
+    setMetaDescription("This page contain the trailer, casts and other details about the movie.");
   }, []);
 
   useEffect(() => {

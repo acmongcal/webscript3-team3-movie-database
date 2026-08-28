@@ -59,3 +59,18 @@ export async function fetchRecommendedMovies(movieIds, apiKey, signal) {
     })
     .slice(0, 5);
 }
+
+
+export function setMetaDescription(descriptionText) {
+  let metaDescription = document.querySelector('meta[name="description"]');
+  
+  if (metaDescription) {
+    metaDescription.setAttribute('content', descriptionText);
+  } else {
+    metaDescription = document.createElement('meta');
+    metaDescription.setAttribute('name', 'description');
+    metaDescription.setAttribute('content', descriptionText);
+    
+    document.head.appendChild(metaDescription);
+  }
+}

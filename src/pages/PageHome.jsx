@@ -8,7 +8,7 @@ import {
   animeFilterEndpoint,
   baseURL,
 } from "../global/globals";
-import { setOptions } from "../utilities/functions";
+import { setOptions, setMetaDescription } from "../utilities/functions";
 import HomeFilterNavigation from "../components/HomeFilterNavigation";
 
 // Component imports
@@ -67,6 +67,7 @@ function PageHome() {
 
   useEffect(() => {
     document.title = `${appTitle} - Home`;
+    setMetaDescription("Discover anime movies, explore detailed movie information, and save your favourites with Animovies.");
   }, []);
   if (error) {
     return (

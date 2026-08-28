@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 // Javascript imports
 import { appTitle } from "../global/globals";
+import { setMetaDescription } from "../utilities/functions";
 
 // Asset imports
 import japaneseGarden from "../assets/images/japanese-garden.jpg";
@@ -13,6 +14,7 @@ import TmdbAttribution from "../components/TmdbAttribution";
 function PageAbout() {
   useEffect(() => {
     document.title = `${appTitle} - About`;
+    setMetaDescription("This page tells about the website's story, goals and attribution. ");
   }, []);
   return (
     <section className="about-page page-content">

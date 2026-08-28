@@ -4,7 +4,7 @@ import { FavoritesContext } from "../context/FavoritesContext";
 
 // Javascript imports
 import { appTitle } from "../global/globals";
-import { fetchRecommendedMovies } from "../utilities/functions";
+import { fetchRecommendedMovies, setMetaDescription } from "../utilities/functions";
 
 // Component imports
 import MovieSection from "../components/MovieSection";
@@ -14,14 +14,17 @@ import RecommendationsCarousel from "../components/RecommendedCarousel";
 //Constants
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
+
 function PageFavorites() {
   // Page data and request status.
   const [recommendedMovies, setRecommendedMovies] = useState([]);
   const [recommendationsError, setRecommendationsError] = useState(null);
   const { favorites } = useContext(FavoritesContext);
-
+  
+  
   useEffect(() => {
     document.title = `${appTitle} - Favorites`;
+    setMetaDescription("This page contains all the movies you have favorited.");
   }, []);
   // Ask TMDB for recommendations based on the current favorites.
   useEffect(() => {
