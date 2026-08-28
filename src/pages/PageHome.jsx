@@ -69,7 +69,11 @@ function PageHome() {
     document.title = `${appTitle} - Home`;
   }, []);
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <main className="movie-details-error" role="alert">
+        <h1>{error}</h1>
+      </main>
+    );
   }
 
   return (

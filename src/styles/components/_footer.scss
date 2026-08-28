@@ -102,9 +102,23 @@
   }
 
   #footer-contact-us {
+    display: flex;
+    flex-wrap: wrap;
     color: #b8c0c7;
     font-size: 0.875rem;
     line-height: 1.5;
+    gap: 2rem;
+  }
+   #footer-contact-us a{
+    padding-bottom: 2rem;
+   }
+  #footer-contact-us a img{
+    height: 4rem;
+    width: 3rem;
+  }
+
+  #footer-contact-us a img:hover{
+    border-bottom: 0.3rem solid #72c6ad;
   }
 
   .footer-copyright {

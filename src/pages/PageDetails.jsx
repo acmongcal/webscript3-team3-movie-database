@@ -102,7 +102,7 @@ function PageDetails() {
   if (error) {
     return (
       <main className="movie-details-error" role="alert">
-        <h1>We could not find that movie</h1>
+        <h1>{error}</h1>
       </main>
     );
   }
