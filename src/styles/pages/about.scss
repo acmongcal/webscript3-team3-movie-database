@@ -1,12 +1,11 @@
 .about-page {
   padding: 0.5rem 1rem;
-  background-color: #eee;
+  background-color: #ddd;
 
   .about-wrapper {
     overflow: hidden;
     width: min(100%, 60rem);
     margin: 2rem auto;
-    padding-bottom: 3rem;
     color: #1a1a1a;
     background-color: #fff;
     border: 0.2rem solid #000;
@@ -39,6 +38,11 @@
       @media (min-width: 48rem) {
         aspect-ratio: 2 / 1;
       }
+    }
+
+    .about-content-wrapper {
+      padding-bottom: 3rem;
+      background-color: #fff;
     }
 
     .about-content {
