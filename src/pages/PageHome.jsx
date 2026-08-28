@@ -11,7 +11,6 @@ function PageHome() {
   const [error, setError] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [heroGenres, setHeroGenres] = useState([]);
   const [filter, setFilter] = useState(nowPlayingEndpoint);
 
   useEffect(() => {
@@ -37,23 +36,6 @@ function PageHome() {
         const data = initialJson.results;
         if (isMounted) {
           setMovies(data);
-          try{
-            for (let index = 0; index < 6; index++) {
-              const response = await fetch(`https://api.themoviedb.org/3/movie/${data[index].id}?language=en-US`,options,
-              );
-              if(!response.ok){
-                throw new Error("Genre not found");
-              }
-              const initialJson = await response.json();
-              setHeroGenres([...heroGenres,[initialJson.genres]]);
-            }
-            console.log(heroGenres);
-          }
-          catch(err){
-            setError(err.message);
-            setHeroGenres([]);
-            setLoading(false);
-          }
           setLoading(false);
         }
       } catch (err) {
