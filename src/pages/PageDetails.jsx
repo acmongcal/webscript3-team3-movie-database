@@ -100,7 +100,11 @@ function PageDetails() {
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return (
+      <main className="movie-details-error" role="alert">
+        <h1>We could not find that movie</h1>
+      </main>
+    );
   }
 
   const poster = movie.backdrop_path
