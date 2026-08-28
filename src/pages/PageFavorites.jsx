@@ -1,10 +1,17 @@
+// React imports
 import { useEffect, useState, useContext } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
-import MovieSection from "../components/MovieSection";
-import RecommendationsCarousel from "../components/RecommendedCarousel";
+
+// Javascript imports
 import { appTitle } from "../global/globals";
 import { fetchRecommendedMovies } from "../utilities/functions";
 
+// Component imports
+import MovieSection from "../components/MovieSection";
+import RecommendationsCarousel from "../components/RecommendedCarousel";
+
+
+//Constants
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
 function PageFavorites() {

@@ -1,5 +1,8 @@
+// React imports
 import { useState, useEffect } from "react";
 import { FavoritesContext } from "./FavoritesContext";
+
+// Javascript imports
 import { localFavorites } from "../global/globals";
 
 export function FavoritesProvider({ children }) {

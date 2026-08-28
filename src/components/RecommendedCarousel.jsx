@@ -1,8 +1,16 @@
+// React imports
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import posterPlaceholder from "../assets/images/poster-placeholder.svg";
+
+// Javascript imports
 import { IMAGE_BASE_URL, POSTER_BASE_URL } from "../global/globals";
+
+// Asset imports
+import posterPlaceholder from "../assets/images/poster-placeholder.svg";
+
+//Bootstrap component imports
+import Button from "react-bootstrap/Button";
+
 
 
 function RecommendationsCarousel({ movies = [], error = null }) {
