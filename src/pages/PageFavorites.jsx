@@ -2,8 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import { FavoritesContext } from "../context/FavoritesContext";
 import MovieSection from "../components/MovieSection";
 import RecommendationsCarousel from "../components/RecommendedCarousel";
-import { fetchRecommendedMovies } from "../global/favoritesApi";
 import { appTitle } from "../global/globals";
+import { fetchRecommendedMovies } from "../utilities/functions";
 
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 

@@ -5,7 +5,7 @@ function PageNotFound() {
     document.title = `${appTitle} - Page Not Found`;
   }, []);
   return (
-    <section>
+    <section className="page-content" >
       <h2>Page Not Found</h2>
     </section>
   );

@@ -15,17 +15,6 @@ export const max_date = new Date(
   Date.now() + 7 * 24 * 60 * 60 * 1000,
 ).toISOString();
 
-export function setOptions(apiKey){
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: "Bearer " + apiKey,
-      }
-    };
-    return options;
-}
-
 // More details here -> https://developer.themoviedb.org/reference/movie-details
 export const detailsEndPoint = `movie/{movie_id}`;
 

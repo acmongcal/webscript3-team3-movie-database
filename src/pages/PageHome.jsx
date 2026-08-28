@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { appTitle, setOptions,nowPlayingEndpoint, animeFilterEndpoint } from "../global/globals";
+import { appTitle,nowPlayingEndpoint, animeFilterEndpoint } from "../global/globals";
+import { setOptions } from "../utilities/functions";
 import HomeFilterNavigation from "../components/HomeFilterNavigation";
 import MovieSection from "../components/MovieSection";
 import HeroBanner from "../components/HeroBanner";
