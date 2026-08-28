@@ -1,6 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import {useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { appTitle, IMAGE_BASE_URL, setOptions } from "../global/globals";
+import {
+  appTitle,
+  IMAGE_BASE_URL,
+  setOptions,
+  ytUrl,
+  vimeoUrl,
+} from "../global/globals";
 import { FavoritesContext } from "../context/FavoritesContext";
 import FavoriteButton from "../components/FavoriteButton";
 import UnfavoriteButton from "../components/UnfavoriteButton";
@@ -88,14 +94,53 @@ function PageDetails() {
     return <p>Error: {error}</p>;
   }
 
-  const poster = movie.poster_path
-    ? `${IMAGE_BASE_URL}${movie.poster_path}`
-    : posterPlaceholder;
-  console.log(movie.videos);
-  const trailer = movie.videos?.results?.find(
-    (video) =>
-      video.site === "YouTube" && video.type === "Trailer" && video.key,
-  );
+  const poster = movie.backdrop_path
+    ? IMAGE_BASE_URL + movie.backdrop_path
+    : movie.poster_path
+      ? IMAGE_BASE_URL + movie.poster_path
+      : posterPlaceholder;
+
+  function getMovieTrailer(movie) {
+    const trailerVid = movie.videos?.results?.find(
+      (video) =>
+        (video.site === "YouTube" || video.site === "Vimeo") &&
+        video.type === "Trailer" &&
+        video.key,
+    );
+    const teaserVid = movie.videos?.results?.find(
+      (video) =>
+        (video.site === "YouTube" || video.site === "Vimeo") &&
+        video.type === "Teaser" &&
+        video.key,
+    );
+    const clipVid = movie.videos?.results?.find(
+      (video) =>
+        (video.site === "YouTube" || video.site === "Vimeo") &&
+        video.type === "Clip" &&
+        video.key,
+    );
+
+    const actualTrailer = trailerVid
+      ? trailerVid
+      : teaserVid
+        ? teaserVid
+        : clipVid
+          ? clipVid
+          : "";
+
+    if (actualTrailer) {
+      if (actualTrailer.site === "YouTube") {
+        return `${ytUrl}${actualTrailer.key}`;
+      } else if (actualTrailer.site === "Vimeo") {
+        return `${vimeoUrl}${actualTrailer.key}`;
+      } else {
+        return "";
+      }
+    } else {
+      return actualTrailer;
+    }
+  }
+  const trailer = getMovieTrailer(movie);
 
   return (
     <div className="movie-details-page">
@@ -163,7 +208,7 @@ function PageDetails() {
         {trailer && (
           <aside className="movie-details-trailer" aria-label="Movie trailer">
             <iframe
-              src={`https://www.youtube.com/embed/${trailer.key}`}
+              src={trailer}
               title={`${movie.title} trailer`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
