@@ -31,8 +31,7 @@ async function fetchTmdb(path, apiKey, signal) {
 // Load, combine, and clean Japanese recommendations.
 export async function fetchRecommendedMovies(movieIds, apiKey, signal) {
   if (movieIds.length === 0) {
-    const responses = await Promise.all(fetchTmdb(`${animeFilterEndpoint}${popularEndpoint}`, apiKey, signal));
-    return (responses.flatMap(({ results }) => results)).slice(0, 5);
+    return [];
   }
 
   const responses = await Promise.all(
