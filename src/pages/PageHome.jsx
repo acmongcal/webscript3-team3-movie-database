@@ -67,7 +67,9 @@ function PageHome() {
 
   useEffect(() => {
     document.title = `${appTitle} - Home`;
-    setMetaDescription("Discover anime movies, explore detailed movie information, and save your favourites with Animovies.");
+    setMetaDescription(
+      "Discover anime movies, explore detailed movie information, and save your favourites with Animovies.",
+    );
   }, []);
   if (error) {
     return (
@@ -84,19 +86,20 @@ function PageHome() {
       ) : (
         <HeroBanner movies={movies} />
       )}
-      {loading ? (
-        <div className="loader"></div>
-      ) : (
-        <div className="page-content">
-          <HomeFilterNavigation
-            setFilter={setFilter}
-            setPageNumber={setPageNumber}
-            totalPages={totalPages}
-            currentPageNumber={pageNumber}
-          />
+
+      <div className="page-content">
+        <HomeFilterNavigation
+          setFilter={setFilter}
+          setPageNumber={setPageNumber}
+          totalPages={totalPages}
+          currentPageNumber={pageNumber}
+        />
+        {loading ? (
+          <div className="loader"></div>
+        ) : (
           <MovieSection title="" movies={movies} />
-        </div>
-      )}
+        )}
+      </div>
     </section>
   );
 }
