@@ -5,20 +5,23 @@ import {
   upcomingEndpoint,
   topRatedEndpoint,
 } from "../global/globals";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Pagination } from "react-bootstrap";
-
+import Dropdown from "react-bootstrap/Dropdown";
+import useIsMobile from "../hooks/useIsMobile";
 function HomeFilterNavigation({
   setFilter,
   setPageNumber,
   totalPages,
   currentPageNumber,
 }) {
-  const [currentFilter, setCurrentFilter] = useState(1);
-  const handleFilter = (e, filter, filterNum) => {
+  const isMobile = useIsMobile();
+  const [isExcerpt, setIsExcerpt] = useState(false);
+  const [currentFilter, setCurrentFilter] = useState("Now Playing");
+  const handleFilter = (e, filter, filterName) => {
     e.preventDefault();
     setFilter(filter);
-    setCurrentFilter(filterNum);
+    setCurrentFilter(filterName);
     setPageNumber(1);
   };
   const handlePageNavigation = (e, navigation) => {
@@ -33,38 +36,80 @@ function HomeFilterNavigation({
       }
     }
   };
+  useEffect(() => {
+    if (!isMobile) {
+      setIsExcerpt(false);
+    } else {
+      setIsExcerpt(true);
+    }
+  }, [isMobile]);
   return (
     <nav className="movie-filter">
-      <ButtonGroup>
-        <Button
-          variant="dark"
-          onClick={(e) => handleFilter(e, nowPlayingEndpoint, 1)}
-          active={currentFilter == 1 ? true : false}
-        >
-          Now Playing
-        </Button>
-        <Button
-          variant="dark"
-          onClick={(e) => handleFilter(e, popularEndpoint, 2)}
-          active={currentFilter == 2 ? true : false}
-        >
-          Popular
-        </Button>
-        <Button
-          variant="dark"
-          onClick={(e) => handleFilter(e, upcomingEndpoint, 3)}
-          active={currentFilter == 3 ? true : false}
-        >
-          Upcoming
-        </Button>
-        <Button
-          variant="dark"
-          onClick={(e) => handleFilter(e, topRatedEndpoint, 4)}
-          active={currentFilter == 4 ? true : false}
-        >
-          Top Rated
-        </Button>
-      </ButtonGroup>
+      {isExcerpt ? (
+        <Dropdown>
+          <Dropdown.Toggle variant="dark">{currentFilter}</Dropdown.Toggle>
+
+          <Dropdown.Menu variant="dark">
+            <Dropdown.Item
+              active={currentFilter == "Now Playing" ? true : false}
+              onClick={(e) =>
+                handleFilter(e, nowPlayingEndpoint, "Now Playing")
+              }
+            >
+              Now Playing
+            </Dropdown.Item>
+            <Dropdown.Item
+              active={currentFilter == "Popular" ? true : false}
+              onClick={(e) => handleFilter(e, popularEndpoint, "Popular")}
+            >
+              Popular
+            </Dropdown.Item>
+            <Dropdown.Item
+              active={currentFilter == "Upcoming" ? true : false}
+              onClick={(e) => handleFilter(e, upcomingEndpoint, "Upcoming")}
+            >
+              Upcoming
+            </Dropdown.Item>
+            <Dropdown.Item
+              active={currentFilter == "Top Rated" ? true : false}
+              onClick={(e) => handleFilter(e, topRatedEndpoint, "Top Rated")}
+            >
+              Top Rated
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      ) : (
+        <ButtonGroup>
+          <Button
+            variant="dark"
+            onClick={(e) => handleFilter(e, nowPlayingEndpoint, "Now Playing")}
+            active={currentFilter == "Now Playing" ? true : false}
+          >
+            Now Playing
+          </Button>
+          <Button
+            variant="dark"
+            onClick={(e) => handleFilter(e, popularEndpoint, "Popular")}
+            active={currentFilter == "Popular" ? true : false}
+          >
+            Popular
+          </Button>
+          <Button
+            variant="dark"
+            onClick={(e) => handleFilter(e, upcomingEndpoint, "Upcoming")}
+            active={currentFilter == "Upcoming" ? true : false}
+          >
+            Upcoming
+          </Button>
+          <Button
+            variant="dark"
+            onClick={(e) => handleFilter(e, topRatedEndpoint, "Top Rated")}
+            active={currentFilter == "Top Rated" ? true : false}
+          >
+            Top Rated
+          </Button>
+        </ButtonGroup>
+      )}
       {totalPages > 1 && (
         <Pagination data-bs-theme="dark">
           <Pagination.Prev
