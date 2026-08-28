@@ -73,10 +73,12 @@ function PageFavorites() {
         <MovieSection title="Favorite Movies" movies={favorites} />
       )}
 
-      <RecommendationsCarousel
-        movies={recommendedMovies}
-        error={recommendationsError}
-      />
+      {favorites.length > 0 && (
+        <RecommendationsCarousel
+          movies={recommendedMovies}
+          error={recommendationsError}
+        />
+      )}
     </div>
   );
 }
