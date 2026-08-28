@@ -9,9 +9,9 @@ function PageNotFound() {
     document.title = `${appTitle} - Page Not Found`;
   }, []);
   return (
-    <section className="page-content" >
-      <h2>Page Not Found</h2>
-    </section>
+    <main className="movie-details-error" role="alert">
+      <h1>Page Not Found</h1>
+    </main>
   );
 }
 

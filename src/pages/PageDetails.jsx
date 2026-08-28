@@ -1,5 +1,5 @@
 // React imports
-import {useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FavoritesContext } from "../context/FavoritesContext";
 
@@ -9,7 +9,7 @@ import {
   IMAGE_BASE_URL,
   ytUrl,
   vimeoUrl,
-  baseURL
+  baseURL,
 } from "../global/globals";
 import { setOptions } from "../utilities/functions";
 
@@ -100,7 +100,11 @@ function PageDetails() {
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return (
+      <main className="movie-details-error" role="alert">
+        <h1>We could not find that movie</h1>
+      </main>
+    );
   }
 
   const poster = movie.backdrop_path
@@ -205,7 +209,7 @@ function PageDetails() {
             </div>
 
             <div className="movie-details-genres" aria-label="Genres">
-              {(movie.genres || []).slice(0, 2).map((genre) => (
+              {(movie.genres || []).map((genre) => (
                 <span className="movie-details-genre" key={genre.id}>
                   {genre.name}
                 </span>
