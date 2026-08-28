@@ -5,6 +5,10 @@ import Nav from "./Nav";
 // Component imports
 import TmdbAttribution from "./TmdbAttribution";
 
+//Assets Import 
+import alanProfile from "../assets/images/alan.png";
+import johnnyProfile from "../assets/images/johnny.png";
+import scottProfile from "../assets/images/scott.png";
 function Footer() {
   return (
     <footer className="site-footer">

@@ -74,17 +74,24 @@ function PageHome() {
 
   return (
     <section>
-      {loading && <div>Loading movies...</div>}
-      <HeroBanner movies={movies} />
-      <div className="page-content">
-        <HomeFilterNavigation
-          setFilter={setFilter}
-          setPageNumber={setPageNumber}
-          totalPages={totalPages}
-          currentPageNumber={pageNumber}
-        />
-        <MovieSection title="" movies={movies} />
-      </div>
+      {loading ? (
+        <div className="loader"></div>
+      ) : (
+        <HeroBanner movies={movies} />
+      )}
+      {loading ? (
+        <div className="loader"></div>
+      ) : (
+        <div className="page-content">
+          <HomeFilterNavigation
+            setFilter={setFilter}
+            setPageNumber={setPageNumber}
+            totalPages={totalPages}
+            currentPageNumber={pageNumber}
+          />
+          <MovieSection title="" movies={movies} />
+        </div>
+      )}
     </section>
   );
 }

@@ -96,7 +96,7 @@ function PageDetails() {
   }, [id]);
 
   if (loading) {
-    return <p>Loading movie...</p>;
+    return <div className="loader"></div>;
   }
 
   if (error) {
