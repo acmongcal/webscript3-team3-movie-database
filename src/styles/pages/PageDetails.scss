@@ -46,7 +46,7 @@
   position: absolute;
   top: 50%;
   right: clamp(1.25rem, 7vw, 7rem);
-  width: clamp(13rem, 25vw, 23rem);
+  width: clamp(16rem, 30vw, 28rem);
   aspect-ratio: 1;
   transform: translateY(-50%);
   overflow: hidden;
@@ -159,6 +159,10 @@
   color: #17252a;
 }
 
+.movie-cast .movie-details-kicker {
+  color: #17252a;
+}
+
 .movie-cast-inner {
   max-width: 90rem;
   margin: 0 auto;
@@ -250,7 +254,7 @@
     top: auto;
     right: 1.25rem;
     bottom: 1.25rem;
-    width: 13rem;
+    width: 18rem;
     transform: none;
   }
 
