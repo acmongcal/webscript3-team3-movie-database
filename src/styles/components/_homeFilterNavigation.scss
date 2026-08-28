@@ -19,3 +19,9 @@
     color: #e6533c;
     box-shadow:  0 0 0 0.1rem #e6533c;
 }
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #e6533c;
+    text-decoration: none;
+    background-color: #212529;
+}
