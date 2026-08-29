@@ -1,11 +1,20 @@
+// React imports
 import { useEffect } from "react";
+
+// Javascript imports
 import { appTitle } from "../global/globals";
+import { setMetaDescription } from "../utilities/functions";
+
+// Asset imports
 import japaneseGarden from "../assets/images/japanese-garden.jpg";
+
+// Component imports
 import TmdbAttribution from "../components/TmdbAttribution";
 
 function PageAbout() {
   useEffect(() => {
     document.title = `${appTitle} - About`;
+    setMetaDescription("This page tells about the website's story, goals and attribution. ");
   }, []);
   return (
     <section className="about-page page-content">
@@ -16,44 +25,46 @@ function PageAbout() {
           src={japaneseGarden}
           alt="Japanese garden"
         />
-        <article className="about-content">
-          <section>
-            <h3>Our Story</h3>
-            <p>
-              Welcome to Animovies, an anime movie database created for fans who
-              want an easy way to discover and explore animated films from Japan.
-              Our platform brings together information on popular classics, modern
-              releases, and hidden gems, making it simple to find your next movie
-              to watch.
-            </p>
-          </section>
+        <div className="about-content-wrapper">
+          <article className="about-content">
+            <section>
+              <h3>Our Story</h3>
+              <p>
+                Welcome to Animovies, an anime movie database created for fans who
+                want an easy way to discover and explore animated films from Japan.
+                Our platform brings together information on popular classics, modern
+                releases, and hidden gems, making it simple to find your next movie
+                to watch.
+              </p>
+            </section>
 
-          <section>
-            <h3>What You Can Explore</h3>
-            <p>
-              At Animovies, you can browse detailed movie pages featuring story
-              summaries, genres, release dates, studios, runtimes, ratings, and
-              trailers. Whether you're a longtime anime fan or just beginning your
-              journey, our goal is to provide accurate information through a clean
-              and easy-to-use experience.
-            </p>
-          </section>
+            <section>
+              <h3>What You Can Explore</h3>
+              <p>
+                At Animovies, you can browse detailed movie pages featuring story
+                summaries, genres, release dates, studios, runtimes, ratings, and
+                trailers. Whether you're a longtime anime fan or just beginning your
+                journey, our goal is to provide accurate information through a clean
+                and easy-to-use experience.
+              </p>
+            </section>
 
-          <section>
-            <h3>Our Mission</h3>
-            <p>
-              We believe every anime movie has a story worth discovering. That's
-              why we're committed to building a reliable database where fans can
-              explore new releases, revisit timeless classics, and learn more
-              about the films and creators behind them.
-            </p>
-          </section>
+            <section>
+              <h3>Our Mission</h3>
+              <p>
+                We believe every anime movie has a story worth discovering. That's
+                why we're committed to building a reliable database where fans can
+                explore new releases, revisit timeless classics, and learn more
+                about the films and creators behind them.
+              </p>
+            </section>
 
-          <section className="about-attribution">
-            <h3>Data Attribution</h3>
-            <TmdbAttribution />
-          </section>
-        </article>
+            <section className="about-attribution">
+              <h3>Data Attribution</h3>
+              <TmdbAttribution />
+            </section>
+          </article>
+        </div>
       </div>
     </section>
   );

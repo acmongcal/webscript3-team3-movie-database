@@ -1,4 +1,17 @@
-import { baseURL, setOptions } from "./globals";
+import { baseURL} from "../global/globals";
+
+//Set options for api call
+export function setOptions(apiKey){
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: "Bearer " + apiKey,
+      }
+    };
+    return options;
+}
+
 
 // Fetch one TMDB endpoint and return its JSON data.
 async function fetchTmdb(path, apiKey, signal) {
@@ -14,12 +27,6 @@ async function fetchTmdb(path, apiKey, signal) {
   return response.json();
 }
 
-// Load full movie details for each saved TMDB ID.
-export function fetchFavoriteMovies(movieIds, apiKey, signal) {
-  return Promise.all(
-    movieIds.map((id) => fetchTmdb(`movie/${id}`, apiKey, signal)),
-  );
-}
 
 // Load, combine, and clean Japanese recommendations.
 export async function fetchRecommendedMovies(movieIds, apiKey, signal) {
@@ -51,4 +58,19 @@ export async function fetchRecommendedMovies(movieIds, apiKey, signal) {
       return secondScore - firstScore;
     })
     .slice(0, 5);
+}
+
+
+export function setMetaDescription(descriptionText) {
+  let metaDescription = document.querySelector('meta[name="description"]');
+  
+  if (metaDescription) {
+    metaDescription.setAttribute('content', descriptionText);
+  } else {
+    metaDescription = document.createElement('meta');
+    metaDescription.setAttribute('name', 'description');
+    metaDescription.setAttribute('content', descriptionText);
+    
+    document.head.appendChild(metaDescription);
+  }
 }

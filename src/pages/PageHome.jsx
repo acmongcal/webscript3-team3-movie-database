@@ -1,8 +1,21 @@
+// React imports
 import { useEffect, useState } from "react";
-import { appTitle, setOptions,nowPlayingEndpoint, animeFilterEndpoint } from "../global/globals";
+
+// Javascript imports
+import {
+  appTitle,
+  nowPlayingEndpoint,
+  animeFilterEndpoint,
+  baseURL,
+} from "../global/globals";
+import { setOptions, setMetaDescription } from "../utilities/functions";
 import HomeFilterNavigation from "../components/HomeFilterNavigation";
+
+// Component imports
 import MovieSection from "../components/MovieSection";
 import HeroBanner from "../components/HeroBanner";
+
+//Constants
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
 function PageHome() {
@@ -22,7 +35,7 @@ function PageHome() {
 
       try {
         const response = await fetch(
-          `${animeFilterEndpoint}&page=${pageNumber}&${filter}`,
+          `${baseURL}${animeFilterEndpoint}&page=${pageNumber}&${filter}`,
           options,
         );
 
@@ -32,7 +45,6 @@ function PageHome() {
 
         const initialJson = await response.json();
         setTotalPages(initialJson.total_pages);
-        // console.log(initialJson.total_results);
         const data = initialJson.results;
         if (isMounted) {
           setMovies(data);
@@ -55,23 +67,38 @@ function PageHome() {
 
   useEffect(() => {
     document.title = `${appTitle} - Home`;
+    setMetaDescription(
+      "Discover anime movies, explore detailed movie information, and save your favourites with Animovies.",
+    );
   }, []);
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <main className="movie-details-error" role="alert">
+        <h1>{error}</h1>
+      </main>
+    );
   }
 
   return (
     <section>
-      {loading && <div>Loading movies...</div>}
-      <HeroBanner movies={movies} />
+      {loading ? (
+        <div className="loader"></div>
+      ) : (
+        <HeroBanner movies={movies} />
+      )}
+
       <div className="page-content">
-        <HomeFilterNavigation 
-         setFilter={setFilter}
-         setPageNumber={setPageNumber}
-         totalPages={totalPages}
-         currentPageNumber={pageNumber}
+        <HomeFilterNavigation
+          setFilter={setFilter}
+          setPageNumber={setPageNumber}
+          totalPages={totalPages}
+          currentPageNumber={pageNumber}
         />
-        <MovieSection title="" movies={movies} />
+        {loading ? (
+          <div className="loader"></div>
+        ) : (
+          <MovieSection title="" movies={movies} />
+        )}
       </div>
     </section>
   );

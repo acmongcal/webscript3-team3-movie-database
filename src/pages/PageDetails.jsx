@@ -1,17 +1,26 @@
-import {useContext, useEffect, useState } from "react";
+// React imports
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { FavoritesContext } from "../context/FavoritesContext";
+
+// Javascript imports
 import {
   appTitle,
   IMAGE_BASE_URL,
-  setOptions,
   ytUrl,
   vimeoUrl,
+  baseURL,
 } from "../global/globals";
-import { FavoritesContext } from "../context/FavoritesContext";
-import FavoriteButton from "../components/FavoriteButton";
-import UnfavoriteButton from "../components/UnfavoriteButton";
+import { setOptions, setMetaDescription } from "../utilities/functions";
+
+// Asset imports
 import posterPlaceholder from "../assets/images/poster-placeholder.svg";
 
+// Component imports
+import FavoriteButton from "../components/FavoriteButton";
+import UnfavoriteButton from "../components/UnfavoriteButton";
+
+//Constants
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 const INITIAL_CAST_COUNT = 5;
 const MAX_CAST_COUNT = 20;
@@ -29,6 +38,7 @@ function PageDetails() {
 
   useEffect(() => {
     document.title = `${appTitle} - Details`;
+    setMetaDescription("This page contain the trailer, casts and other details about the movie.");
   }, []);
 
   useEffect(() => {
@@ -37,7 +47,7 @@ function PageDetails() {
         const options = setOptions(API_KEY);
 
         const movieResponse = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?append_to_response=keywords,videos`,
+          `${baseURL}movie/${id}?append_to_response=keywords,videos`,
           options,
         );
 
@@ -58,7 +68,7 @@ function PageDetails() {
         }
 
         const creditsResponse = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}/credits`,
+          `${baseURL}movie/${id}/credits`,
           options,
         );
 
@@ -87,11 +97,15 @@ function PageDetails() {
   }, [id]);
 
   if (loading) {
-    return <p>Loading movie...</p>;
+    return <div className="loader"></div>;
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return (
+      <main className="movie-details-error" role="alert">
+        <h1>{error}</h1>
+      </main>
+    );
   }
 
   const poster = movie.backdrop_path
@@ -196,7 +210,7 @@ function PageDetails() {
             </div>
 
             <div className="movie-details-genres" aria-label="Genres">
-              {(movie.genres || []).slice(0, 2).map((genre) => (
+              {(movie.genres || []).map((genre) => (
                 <span className="movie-details-genre" key={genre.id}>
                   {genre.name}
                 </span>

@@ -1,5 +1,8 @@
+// React imports
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+// Component imports
 import Nav from "./Nav";
 
 function Header() {

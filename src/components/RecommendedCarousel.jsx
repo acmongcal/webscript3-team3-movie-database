@@ -1,10 +1,17 @@
+// React imports
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+
+// Javascript imports
+import { IMAGE_BASE_URL, POSTER_BASE_URL } from "../global/globals";
+
+// Asset imports
 import posterPlaceholder from "../assets/images/poster-placeholder.svg";
 
-const BACKDROP_URL = "https://image.tmdb.org/t/p/original";
-const POSTER_URL = "https://image.tmdb.org/t/p/w500";
+//Bootstrap component imports
+import Button from "react-bootstrap/Button";
+
+
 
 function RecommendationsCarousel({ movies = [], error = null }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -50,9 +57,9 @@ function RecommendationsCarousel({ movies = [], error = null }) {
 
   let image = posterPlaceholder;
   if (activeMovie.backdrop_path) {
-    image = `${BACKDROP_URL}${activeMovie.backdrop_path}`;
+    image = `${IMAGE_BASE_URL}${activeMovie.backdrop_path}`;
   } else if (activeMovie.poster_path) {
-    image = `${POSTER_URL}${activeMovie.poster_path}`;
+    image = `${POSTER_BASE_URL}${activeMovie.poster_path}`;
   }
 
   const title = activeMovie.title || "Title unavailable";

@@ -1,12 +1,24 @@
-import { Carousel, Image, Button } from "react-bootstrap";
+// React imports
 import { useState, useContext, useEffect } from "react";
-import { IMAGE_BASE_URL, setOptions } from "../global/globals";
-import posterPlaceholder from "../assets/images/poster-placeholder.svg";
-import FavoriteButton from "./FavoriteButton";
-import UnfavoriteButton from "./UnfavoriteButton";
 import { Link } from "react-router-dom";
 import { FavoritesContext } from "../context/FavoritesContext";
+
+// Javascript imports
+import { IMAGE_BASE_URL, baseURL, genresEndpoint} from "../global/globals";
+import { setOptions } from "../utilities/functions";
+
+// Asset imports
+import posterPlaceholder from "../assets/images/poster-placeholder.svg";
 import useIsMobile from "../hooks/useIsMobile";
+
+//Bootstrap component imports
+import { Carousel, Image, Button } from "react-bootstrap";
+
+// Component imports
+import FavoriteButton from "./FavoriteButton";
+import UnfavoriteButton from "./UnfavoriteButton";
+
+//Constants
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
 
 function HeroBanner({ movies }) {
@@ -35,7 +47,7 @@ function HeroBanner({ movies }) {
 
       try {
         const response = await fetch(
-          "https://api.themoviedb.org/3/genre/movie/list?language=en",
+          `${baseURL}${genresEndpoint}`,
           options,
         );
 

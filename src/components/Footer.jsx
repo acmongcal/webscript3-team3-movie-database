@@ -1,7 +1,14 @@
+// React imports
 import { Link } from "react-router-dom";
 import Nav from "./Nav";
+
+// Component imports
 import TmdbAttribution from "./TmdbAttribution";
 
+//Assets Import 
+import alanProfile from "../assets/images/alan.png";
+import johnnyProfile from "../assets/images/johnny.png";
+import scottProfile from "../assets/images/scott.png";
 function Footer() {
   return (
     <footer className="site-footer">
@@ -24,7 +31,11 @@ function Footer() {
           </div>
           <div className="footer-contact">
             <h3>Contact Us</h3>
-            <div id="footer-contact-us">Contact links images</div>
+            <div id="footer-contact-us">
+              <a href="https://kuuhakudev.com/animovies"><img src={alanProfile} alt="avatar for alan" /></a>
+              <a href="https://johnzhu.ca/animovies"><img src={johnnyProfile} alt="avatar for johnny" /></a>
+              <a href="https://scottouellette.com/animovies"><img src={scottProfile} alt="avatar for scott" /></a>
+            </div>
           </div>
         </section>
       </div>

@@ -15,41 +15,19 @@ export const max_date = new Date(
   Date.now() + 7 * 24 * 60 * 60 * 1000,
 ).toISOString();
 
-export function setOptions(apiKey){
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: "Bearer " + apiKey,
-      }
-    };
-    return options;
-}
-
-// More details here -> https://developer.themoviedb.org/reference/movie-details
-export const detailsEndPoint = `movie/{movie_id}`;
-
-//More details here -> https://developer.themoviedb.org/reference/movie-images
-export const movieImagesEndPoint =`movie/{movie_id}/images`;
-
-//More details here -> https://developer.themoviedb.org/reference/movie-videos
-export const movieTrailerEndPoint = `movie/{movie_id}/videos`;
 // Append the key from the movie-videos
 export const ytUrl = "https://www.youtube.com/embed/";
 export const vimeoUrl = "https://player.vimeo.com/video/";
-
-
-//More details here -> https://developer.themoviedb.org/reference/movie-credits
-export const movieCastEndPoint =`movie/{movie_id}/credits`;
 
 
 //More details here -> https://developer.themoviedb.org/reference/search-movie
 export const searchEndPoint = "https://developer.themoviedb.org/reference/search-movie?query=";
 
 
+export const genresEndpoint = "genre/movie/list?language=en";
 
 //Filters for home and anime movies
-export const animeFilterEndpoint = "https://api.themoviedb.org/3/discover/movie?include_adult=false$&language=en-US&with_original_language=ja&with_origin_country=JP&with_keywords=210024";
+export const animeFilterEndpoint = "discover/movie?include_adult=false$&language=en-US&with_original_language=ja&with_origin_country=JP&with_keywords=210024";
 
 export const nowPlayingEndpoint = `&sort_by=popularity.desc&with_release_type=1|2|3&primary_release_date.gte=${min_date}&primary_release_date.lte=${max_date}`;
 
