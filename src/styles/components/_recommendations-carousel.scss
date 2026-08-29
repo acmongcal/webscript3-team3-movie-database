@@ -55,6 +55,13 @@
     max-width: 48rem;
     margin-inline: auto;
   }
+  a{
+    --bs-btn-bg: #212529;
+    --bs-btn-border-color: #ffb347;
+    --bs-btn-hover-border-color: #e6533c;
+    --bs-btn-hover-color: #72c6ad;
+    --bs-btn-hover-bg: #20242a;
+  }
 }
 
 .recommendation-control {
